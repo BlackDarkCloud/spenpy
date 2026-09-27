@@ -8,7 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -56,7 +56,61 @@ body:before{
 a{color:inherit;text-decoration:none}
 button{font:inherit}
 h1,h2,h3{font-family:"Manrope",sans-serif;margin:0}
+.hero-media-copy h1,
+.section-heading h2,
+.about-card h2,
+.contact-card h2{
+  font-family:"Fraunces","Manrope",serif;
+  font-optical-sizing:auto;
+}
 img{max-width:100%;display:block}
+
+.ornament{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  max-width:1450px;
+  margin:8px auto 46px;
+  padding:0 clamp(20px,5vw,70px);
+}
+.ornament:before,.ornament:after{
+  content:"";
+  height:1px;
+  flex:1;
+  background:linear-gradient(90deg, transparent, var(--line) 50%, transparent);
+}
+.ornament i{
+  width:9px;height:9px;
+  transform:rotate(45deg);
+  background:linear-gradient(135deg,var(--blue),var(--orange));
+  border-radius:2px;
+  flex:none;
+}
+
+.marquee{
+  overflow:hidden;
+  background:var(--blue-dark);
+  padding:15px 0;
+}
+.marquee-track{
+  display:flex;
+  align-items:center;
+  gap:26px;
+  width:max-content;
+  white-space:nowrap;
+  animation:marquee 28s linear infinite;
+}
+.marquee-track span{
+  font-family:"Manrope",sans-serif;
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:.01em;
+  color:#fff;
+}
+.marquee-track .dot{font-style:normal;color:var(--orange);font-size:11px}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.marquee-track{animation:none}}
 
 .site-shell{
   position:relative;
@@ -240,6 +294,8 @@ header.scrolled{padding-top:9px;padding-bottom:9px}
   background:linear-gradient(90deg,var(--blue) 0 50%,var(--orange) 50%);
 }
 .hero-cta{
+  position:relative;
+  overflow:hidden;
   display:inline-flex;
   align-items:center;
   gap:9px;
@@ -254,6 +310,20 @@ header.scrolled{padding-top:9px;padding-bottom:9px}
   transition:.35s var(--ease);
 }
 .hero-cta:hover{transform:translateY(-4px);background:var(--orange);color:#fff}
+.hero-cta:before,
+.panel-cta:before,
+.contact-btn:before{
+  content:"";
+  position:absolute;
+  top:0;left:-60%;
+  width:40%;height:100%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.55), transparent);
+  transform:skewX(-20deg);
+  transition:left .6s ease;
+}
+.hero-cta:hover:before,
+.panel:hover .panel-cta:before,
+.contact-btn:hover:before{left:130%}
 
 /* ---- company info (right) ---- */
 .hero-info{
@@ -448,6 +518,8 @@ header.scrolled{padding-top:9px;padding-bottom:9px}
 }
 .panel-actions{display:flex;align-items:center;gap:11px;margin-top:19px}
 .panel-cta{
+  position:relative;
+  overflow:hidden;
   display:inline-flex;
   align-items:center;
   gap:10px;
@@ -488,22 +560,41 @@ header.scrolled{padding-top:9px;padding-bottom:9px}
   padding:0 clamp(20px,5vw,70px) 95px;
 }
 .about-card{
+  position:relative;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:55px;
   align-items:center;
   padding:58px;
   border-radius:30px;
-  background:#fff;
-  border:1px solid rgba(8,47,80,.07);
+  background:
+    radial-gradient(120% 140% at 100% 0%, rgba(50,148,214,.07), transparent 55%),
+    radial-gradient(90% 120% at 0% 100%, rgba(255,107,0,.05), transparent 55%),
+    repeating-linear-gradient(135deg, rgba(8,47,80,.025) 0 1px, transparent 1px 14px),
+    #fff;
+  border:1px solid rgba(8,47,80,.08);
   box-shadow:var(--shadow);
+  overflow:hidden;
 }
+.about-card:before,.about-card:after{
+  content:"";
+  position:absolute;
+  width:56px;height:56px;
+  border-color:rgba(8,47,80,.18);
+  border-style:solid;
+  pointer-events:none;
+}
+.about-card:before{top:16px;left:16px;border-width:1px 0 0 1px;border-radius:12px 0 0 0}
+.about-card:after{bottom:16px;right:16px;border-width:0 1px 1px 0;border-radius:0 0 12px 0}
 .about-card h2{
   margin-top:9px;
   font-size:clamp(2.2rem,4vw,4rem);
   line-height:1;
   letter-spacing:-.055em;
 }
+.about-card .ornament{margin:0 0 0;justify-content:flex-start;max-width:none;padding:0}
+.about-card .ornament:before{display:none}
+.about-card .ornament:after{max-width:64px}
 .about-card p{
   color:var(--muted);
   line-height:1.75;
@@ -511,10 +602,14 @@ header.scrolled{padding-top:9px;padding-bottom:9px}
 }
 .about-card p+p{margin-top:14px}
 .statement{
+  position:relative;
   padding:32px;
   border-radius:24px;
-  background:var(--blue-soft);
+  background:
+    radial-gradient(140% 160% at 0% 0%, rgba(50,148,214,.10), transparent 60%),
+    var(--blue-soft);
   border:1px solid #d4ebf9;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.6);
 }
 .statement img{
   width:210px;
@@ -538,12 +633,32 @@ header.scrolled{padding-top:9px;padding-bottom:9px}
   padding:0 clamp(20px,5vw,70px) 80px;
 }
 .contact-card{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
   padding:65px 35px;
   text-align:center;
   border-radius:30px;
   background:var(--blue-dark);
   color:#fff;
   box-shadow:var(--shadow);
+}
+.contact-card:before{
+  content:"";
+  position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(60% 70% at 15% 10%, rgba(50,148,214,.55), transparent 60%),
+    radial-gradient(55% 60% at 90% 100%, rgba(255,107,0,.35), transparent 60%),
+    var(--blue-deep);
+}
+.contact-card:after{
+  content:"";
+  position:absolute;inset:0;z-index:-1;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+  background-size:40px 40px;
+  -webkit-mask-image:radial-gradient(circle at 50% 30%, black, transparent 72%);
+  mask-image:radial-gradient(circle at 50% 30%, black, transparent 72%);
 }
 .contact-card h2{
   color:#fff;
@@ -563,6 +678,8 @@ header.scrolled{padding-top:9px;padding-bottom:9px}
   gap:10px;
 }
 .contact-btn{
+  position:relative;
+  overflow:hidden;
   display:inline-flex;
   align-items:center;
   gap:8px;
@@ -752,6 +869,23 @@ footer{
   </div>
 </section>
 
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Spenpy PrintCraft</span><i class="dot">✦</i>
+    <span>West Africa Treasure Tour</span><i class="dot">✦</i>
+    <span>African Dishes Services</span><i class="dot">✦</i>
+    <span>Spenpy Sourcing</span><i class="dot">✦</i>
+    <span>Spenpy Mart</span><i class="dot">✦</i>
+    <span>Spenpy PrintCraft</span><i class="dot">✦</i>
+    <span>West Africa Treasure Tour</span><i class="dot">✦</i>
+    <span>African Dishes Services</span><i class="dot">✦</i>
+    <span>Spenpy Sourcing</span><i class="dot">✦</i>
+    <span>Spenpy Mart</span><i class="dot">✦</i>
+  </div>
+</div>
+
+<div class="ornament"><i></i></div>
+
 <section class="businesses" id="businesses">
   <div class="section-heading reveal">
     <div>
@@ -921,6 +1055,8 @@ footer{
   </div>
 </section>
 
+<div class="ornament"><i></i></div>
+
 <section class="about" id="about">
   <div class="about-card reveal">
     <div>
@@ -937,6 +1073,8 @@ footer{
     </div>
   </div>
 </section>
+
+<div class="ornament"><i></i></div>
 
 <section class="contact" id="contact">
   <div class="contact-card reveal">

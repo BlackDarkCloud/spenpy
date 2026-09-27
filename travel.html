@@ -2,7 +2,7 @@
 <html lang="en" data-lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>West Africa Treasure Tour — Spenpy Enterprises</title>
 <meta name="description" content="West Africa Treasure Tour by Spenpy Enterprises — guided tours across Ghana, Togo and Benin, airport transfers, hotel booking, visa support, custom itineraries and more.">
 
@@ -51,10 +51,10 @@ img{max-width:100%;display:block}
 /* ---------- header / nav (shared identity) ---------- */
 header{
   position:fixed;z-index:200;top:0;left:0;right:0;
-  padding:14px clamp(16px,4vw,54px);
+  padding:calc(14px + env(safe-area-inset-top,0px)) clamp(16px,4vw,54px) 14px;
   transition:.35s var(--ease);
 }
-header.scrolled{padding-top:9px;padding-bottom:9px}
+header.scrolled{padding-top:calc(9px + env(safe-area-inset-top,0px));padding-bottom:9px}
 .nav{
   max-width:1450px;margin:auto;height:66px;
   padding:8px 13px 8px 17px;
@@ -83,7 +83,7 @@ header.scrolled{padding-top:9px;padding-bottom:9px}
 .menu{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--blue-dark);font-size:21px}
 @media (max-width:920px){
   .nav-links{
-    display:none;position:absolute;top:74px;left:14px;right:14px;
+    display:none;position:absolute;top:calc(74px + env(safe-area-inset-top,0px));left:14px;right:14px;
     flex-direction:column;align-items:stretch;gap:2px;
     background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:14px;
   }
@@ -94,7 +94,11 @@ header.scrolled{padding-top:9px;padding-bottom:9px}
 }
 
 /* ---------- hero: image shuttle + video ---------- */
-.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;background:var(--blue-deep)}
+.hero{
+  position:relative;display:flex;align-items:flex-end;overflow:hidden;background:var(--blue-deep);
+  min-height:100vh;min-height:100svh;min-height:100dvh;
+  padding-top:env(safe-area-inset-top,0px);
+}
 .hero-slides{position:absolute;inset:0;z-index:0}
 .hero-slide{
   position:absolute;inset:0;background-size:cover;background-position:center;
@@ -112,7 +116,7 @@ header.scrolled{padding-top:9px;padding-bottom:9px}
   position:absolute;inset:0;z-index:2;
   background:linear-gradient(to top, rgba(4,20,36,.94) 0%, rgba(4,20,36,.62) 38%, rgba(4,20,36,.28) 68%, rgba(4,20,36,.15) 100%);
 }
-.hero-content{position:relative;z-index:3;max-width:1450px;margin:auto;width:100%;padding:150px clamp(18px,4vw,54px) 70px;color:#fff}
+.hero-content{position:relative;z-index:3;max-width:1450px;margin:auto;width:100%;padding:clamp(88px,22vh,150px) clamp(18px,4vw,54px) 40px;color:#fff}
 .hero-kicker{
   display:inline-flex;align-items:center;gap:9px;padding:8px 14px;
   border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);
@@ -144,6 +148,22 @@ header.scrolled{padding-top:9px;padding-bottom:9px}
 .hero-stat strong{display:block;font-family:"Manrope";font-size:26px;font-weight:800}
 .hero-stat span{font-size:12px;color:rgba(255,255,255,.78)}
 @media (max-width:820px){.hero-stats{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){
+  .hero-content h1{font-size:clamp(2rem,9vw,2.6rem);max-width:100%}
+  .hero-copy{font-size:15px;max-width:100%}
+  .hero-kicker{font-size:10px;padding:7px 12px}
+  .hero-actions{gap:10px;margin-top:22px}
+  .btn{padding:13px 18px;font-size:13px}
+  .hero-stats{gap:8px;padding-bottom:20px}
+  .hero-stat{padding:12px 14px}
+  .hero-stat strong{font-size:20px}
+  .hero-stat span{font-size:11px}
+  .hero-dots{bottom:16px}
+}
+@media (max-height:700px) and (max-width:480px){
+  .hero-content{padding-top:80px}
+  .hero-stats{display:none}
+}
 
 /* ---------- shared section chrome ---------- */
 .wrap{max-width:1450px;margin:auto;padding:0 clamp(16px,4vw,54px)}
@@ -284,6 +304,77 @@ footer{background:var(--blue-deep);color:#fff;padding:56px 0 26px}
 .footer-links a:hover{opacity:1;color:var(--orange)}
 footer small{opacity:.55;font-size:12px}
 
+/* ---------- trust strip ---------- */
+.trust-strip{background:#fff;border-bottom:1px solid var(--line)}
+.trust-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:38px 0}
+.trust-item{text-align:center;padding:0 10px;border-right:1px solid var(--line)}
+.trust-item:last-child{border-right:0}
+.trust-item strong{display:block;font-family:"Manrope";font-weight:800;font-size:clamp(1.6rem,3vw,2.1rem);color:var(--blue-dark);letter-spacing:-.02em}
+.trust-item span{font-size:12.5px;color:var(--muted);font-weight:600}
+@media (max-width:760px){
+  .trust-inner{grid-template-columns:repeat(2,1fr);gap:22px 10px;padding:28px 0}
+  .trust-item{border-right:0}
+}
+
+/* ---------- testimonials ---------- */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.testi-grid{grid-template-columns:1fr}}
+.testi-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;display:flex;flex-direction:column;gap:14px}
+.testi-stars{color:var(--yellow);font-size:15px;letter-spacing:2px}
+.testi-quote{margin:0;color:var(--ink);font-size:14.5px;line-height:1.7}
+.testi-who{display:flex;align-items:center;gap:12px;margin-top:auto}
+.testi-avatar{
+  width:42px;height:42px;border-radius:50%;background:var(--blue-soft);color:var(--blue-dark);
+  display:grid;place-items:center;font-family:"Manrope";font-weight:800;font-size:14px;flex-shrink:0;
+}
+.testi-who strong{display:block;font-size:13.5px}
+.testi-who span{display:block;font-size:12px;color:var(--muted)}
+
+/* ---------- FAQ ---------- */
+.faq-list{max-width:820px}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{
+  width:100%;text-align:left;background:transparent;border:0;padding:20px 4px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-family:"Manrope";font-weight:700;font-size:15.5px;color:var(--blue-dark);
+}
+.faq-q svg{width:18px;height:18px;flex-shrink:0;transition:transform .3s var(--ease);color:var(--orange)}
+.faq-item.open .faq-q svg{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
+.faq-a p{margin:0 4px 20px;color:var(--muted);font-size:14px;line-height:1.7;max-width:640px}
+
+/* ---------- two-step booking form ---------- */
+.step-indicator{display:flex;align-items:center;gap:10px;margin-bottom:26px}
+.step-dot{display:flex;flex-direction:column;align-items:center;gap:5px;opacity:.4;transition:.3s}
+.step-dot.active{opacity:1}
+.step-dot .num{width:30px;height:30px;border-radius:50%;background:var(--blue-soft);color:var(--blue-dark);display:grid;place-items:center;font-weight:800;font-size:13px;transition:.3s}
+.step-dot.active .num{background:var(--blue-dark);color:#fff}
+.step-dot small{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:.03em;white-space:nowrap}
+.step-line{flex:1;height:2px;background:var(--line);margin-bottom:19px;position:relative;overflow:hidden}
+.step-line:after{content:"";position:absolute;inset:0;background:var(--blue-dark);width:0;transition:.4s var(--ease)}
+.step-line.filled:after{width:100%}
+.form-step{display:none}
+.form-step.active{display:block;animation:stepIn .4s var(--ease)}
+@keyframes stepIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.btn-outline{background:#fff;border:1px solid var(--line);color:var(--blue-dark)}
+.btn-outline:hover{background:var(--blue-soft)}
+.step-actions{display:flex;gap:10px;margin-top:6px}
+.step-actions .btn{flex:1;justify-content:center}
+
+/* ---------- floating WhatsApp ---------- */
+.wa-float{
+  position:fixed;right:20px;bottom:22px;z-index:150;
+  width:58px;height:58px;border-radius:50%;background:var(--orange);color:#fff;
+  display:grid;place-items:center;box-shadow:0 14px 32px rgba(255,107,0,.4);
+}
+.wa-float svg{width:28px;height:28px}
+.wa-float:before{
+  content:"";position:absolute;inset:0;border-radius:50%;background:var(--orange);
+  animation:waPulse 2.2s ease-out infinite;z-index:-1;
+}
+@keyframes waPulse{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(1.9)}}
+@media (max-width:600px){.wa-float{right:14px;bottom:16px;width:52px;height:52px}.wa-float svg{width:25px;height:25px}}
+
 .reveal{opacity:0;transform:translateY(24px);transition:.7s var(--ease)}
 .reveal.visible{opacity:1;transform:none}
 </style>
@@ -337,6 +428,28 @@ footer small{opacity:.55;font-size:12px}
     <div class="hero-stat"><strong>8+</strong><span data-i18n="hero.stat2">Signature itineraries</span></div>
     <div class="hero-stat"><strong>4</strong><span data-i18n="hero.stat3">Continents we serve</span></div>
     <div class="hero-stat"><strong>24/7</strong><span data-i18n="hero.stat4">Support on the road</span></div>
+  </div>
+</section>
+
+<!-- ================= TRUST STRIP ================= -->
+<section class="trust-strip">
+  <div class="wrap trust-inner">
+    <div class="trust-item reveal">
+      <strong><span class="counter" data-count-to="500">0</span>+</strong>
+      <span data-i18n="trust.1">Travelers hosted</span>
+    </div>
+    <div class="trust-item reveal">
+      <strong><span class="counter" data-count-to="8">0</span>+</strong>
+      <span data-i18n="trust.2">Signature itineraries</span>
+    </div>
+    <div class="trust-item reveal">
+      <strong><span class="counter" data-count-to="12">0</span>+</strong>
+      <span data-i18n="trust.3">Years combined experience</span>
+    </div>
+    <div class="trust-item reveal">
+      <strong>4.9★</strong>
+      <span data-i18n="trust.4">Average traveler rating</span>
+    </div>
   </div>
 </section>
 
@@ -487,6 +600,96 @@ footer small{opacity:.55;font-size:12px}
   <img src="" alt="" id="lightboxImg">
 </div>
 
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section" style="background:var(--white);border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="section-heading reveal">
+      <div>
+        <span class="section-label" data-i18n="testi.label">TRAVELER STORIES</span>
+        <h2 data-i18n="testi.title">What travelers say.</h2>
+      </div>
+      <p data-i18n="testi.copy">Real feedback from people we've hosted across Ghana, Togo and Benin.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote" data-i18n="testi.1.q">Our Ghana tour felt completely personal — the guide adjusted the pace for our family and Accra to the Ashanti region was unforgettable.</p>
+        <div class="testi-who">
+          <div class="testi-avatar">JD</div>
+          <div><strong data-i18n="testi.1.n">Jennifer D.</strong><span data-i18n="testi.1.l">United Kingdom</span></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote" data-i18n="testi.2.q">Spenpy handled our visas, hotels and drivers for Togo and Benin end to end. We just showed up and enjoyed the trip.</p>
+        <div class="testi-who">
+          <div class="testi-avatar">KM</div>
+          <div><strong data-i18n="testi.2.n">Kwame M.</strong><span data-i18n="testi.2.l">Canada</span></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote" data-i18n="testi.3.q">Booked a custom itinerary for 14 of us. Communication on WhatsApp was fast and the whole group had a smooth trip.</p>
+        <div class="testi-who">
+          <div class="testi-avatar">AS</div>
+          <div><strong data-i18n="testi.3.n">Amara S.</strong><span data-i18n="testi.3.l">United States</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section" id="faq" style="background:var(--blue-soft)">
+  <div class="wrap">
+    <div class="section-heading reveal">
+      <div>
+        <span class="section-label" data-i18n="faq.label">GOOD TO KNOW</span>
+        <h2 data-i18n="faq.title">Frequently asked questions.</h2>
+      </div>
+      <p data-i18n="faq.copy">Still deciding? Here's what most travelers ask us before booking.</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.1.q">Do I need a visa to join a tour?</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p data-i18n="faq.1.a">It depends on your nationality and the countries on your itinerary. Once you send an enquiry, we tell you exactly what's needed and can guide you through the visa and documentation process.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.2.q">What's included in the tour price?</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p data-i18n="faq.2.a">Accommodation, ground transport, a local guide and the listed activities are included as standard. Flights, meals outside the itinerary and personal expenses are quoted separately so pricing stays transparent.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.3.q">How much deposit is required to book?</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p data-i18n="faq.3.a">A deposit secures your date once we confirm your itinerary and quote; the balance is due before departure. We'll share exact figures and payment options in your quotation.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.4.q">Can I customize or combine tours?</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p data-i18n="faq.4.a">Yes — every sample tour can be shortened, extended, or combined with another region or country. Tell us your interests and dates and we'll build a custom plan.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.5.q">Do you offer group or corporate discounts?</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p data-i18n="faq.5.a">Yes, groups and corporate bookings receive tailored rates depending on group size and season. Mention "group" or "corporate" in your enquiry and we'll send suitable options.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span data-i18n="faq.6.q">What's your cancellation policy?</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p data-i18n="faq.6.a">Cancellation terms depend on how close to departure you cancel and are confirmed with your quotation, so there are never any surprises.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= QUOTE / CONTACT ================= -->
 <section class="section quote" id="quote">
   <div class="wrap">
@@ -499,63 +702,77 @@ footer small{opacity:.55;font-size:12px}
     </div>
 
     <div class="quote-grid">
-      <form class="quote-form reveal" id="quoteForm">
+      <form class="quote-form reveal" id="quoteForm" novalidate>
         <h3 data-i18n="form.title">Request a quotation</h3>
-        <p class="lead" data-i18n="form.lead">Fields marked with * are required. We usually reply within 24 hours.</p>
+        <p class="lead" data-i18n="form.lead">Two quick steps. We usually reply within 24 hours.</p>
 
-        <div class="form-row">
-          <div class="field">
-            <label data-i18n="form.name">Full name *</label>
-            <input type="text" name="name" required>
-          </div>
-          <div class="field">
-            <label data-i18n="form.email">Email address *</label>
-            <input type="email" name="email" required>
-          </div>
+        <div class="step-indicator">
+          <div class="step-dot active" id="dot1"><span class="num">1</span><small data-i18n="form.step1">Trip details</small></div>
+          <div class="step-line" id="stepLine"></div>
+          <div class="step-dot" id="dot2"><span class="num">2</span><small data-i18n="form.step2">Your details</small></div>
         </div>
 
-        <div class="form-row">
-          <div class="field">
-            <label data-i18n="form.phone">Phone / WhatsApp</label>
-            <input type="tel" name="phone">
+        <div class="form-step active" data-step="1">
+          <div class="form-row">
+            <div class="field">
+              <label data-i18n="form.tour">Tour of interest</label>
+              <select name="tour" id="tourSelect">
+                <option data-i18n="form.tour.opt0" value="Not sure yet">Not sure yet</option>
+                <option data-i18n="form.tour.opt1" value="Ghana Tour – Western Region">Ghana Tour – Western Region</option>
+                <option data-i18n="form.tour.opt2" value="Ghana Tour – Volta Region">Ghana Tour – Volta Region</option>
+                <option data-i18n="form.tour.opt3" value="Ghana Tour – Ashanti Region">Ghana Tour – Ashanti Region</option>
+                <option data-i18n="form.tour.opt4" value="Ghana Tour – Accra">Ghana Tour – Accra</option>
+                <option data-i18n="form.tour.opt5" value="Togo &amp; Benin Tour – Kpalimé">Togo &amp; Benin Tour – Kpalimé</option>
+                <option data-i18n="form.tour.opt6" value="Togo &amp; Benin Tour – Aného">Togo &amp; Benin Tour – Aného</option>
+                <option data-i18n="form.tour.opt7" value="Togo &amp; Benin Tour – Cotonou">Togo &amp; Benin Tour – Cotonou</option>
+                <option data-i18n="form.tour.opt8" value="Togo &amp; Benin Tour – Lomé">Togo &amp; Benin Tour – Lomé</option>
+                <option data-i18n="form.tour.opt9" value="Custom itinerary">Custom itinerary</option>
+              </select>
+            </div>
+            <div class="field">
+              <label data-i18n="form.travelers">Number of travelers</label>
+              <input type="number" name="travelers" min="1" value="1">
+            </div>
           </div>
-          <div class="field">
-            <label data-i18n="form.tour">Tour of interest</label>
-            <select name="tour" id="tourSelect">
-              <option data-i18n="form.tour.opt0" value="Not sure yet">Not sure yet</option>
-              <option data-i18n="form.tour.opt1" value="Ghana Tour – Western Region">Ghana Tour – Western Region</option>
-              <option data-i18n="form.tour.opt2" value="Ghana Tour – Volta Region">Ghana Tour – Volta Region</option>
-              <option data-i18n="form.tour.opt3" value="Ghana Tour – Ashanti Region">Ghana Tour – Ashanti Region</option>
-              <option data-i18n="form.tour.opt4" value="Ghana Tour – Accra">Ghana Tour – Accra</option>
-              <option data-i18n="form.tour.opt5" value="Togo &amp; Benin Tour – Kpalimé">Togo &amp; Benin Tour – Kpalimé</option>
-              <option data-i18n="form.tour.opt6" value="Togo &amp; Benin Tour – Aného">Togo &amp; Benin Tour – Aného</option>
-              <option data-i18n="form.tour.opt7" value="Togo &amp; Benin Tour – Cotonou">Togo &amp; Benin Tour – Cotonou</option>
-              <option data-i18n="form.tour.opt8" value="Togo &amp; Benin Tour – Lomé">Togo &amp; Benin Tour – Lomé</option>
-              <option data-i18n="form.tour.opt9" value="Custom itinerary">Custom itinerary</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="field">
+          <div class="field" style="margin-bottom:20px">
             <label data-i18n="form.date">Preferred travel date</label>
             <input type="date" name="date">
           </div>
-          <div class="field">
-            <label data-i18n="form.travelers">Number of travelers</label>
-            <input type="number" name="travelers" min="1" value="1">
+          <div class="step-actions">
+            <button type="button" class="btn btn-primary" id="toStep2">
+              <span data-i18n="form.continue">Continue</span> →
+            </button>
           </div>
         </div>
 
-        <div class="field" style="margin-bottom:14px">
-          <label data-i18n="form.message">Message</label>
-          <textarea name="message" data-i18n="form.messageph" placeholder="Tell us a bit about the trip you have in mind..."></textarea>
+        <div class="form-step" data-step="2">
+          <div class="form-row">
+            <div class="field">
+              <label data-i18n="form.name">Full name *</label>
+              <input type="text" name="name" required>
+            </div>
+            <div class="field">
+              <label data-i18n="form.email">Email address *</label>
+              <input type="email" name="email" required>
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:14px">
+            <label data-i18n="form.phone">Phone / WhatsApp</label>
+            <input type="tel" name="phone">
+          </div>
+          <div class="field" style="margin-bottom:20px">
+            <label data-i18n="form.message">Message</label>
+            <textarea name="message" data-i18n="form.messageph" placeholder="Tell us a bit about the trip you have in mind..."></textarea>
+          </div>
+          <div class="step-actions">
+            <button type="button" class="btn btn-outline" id="toStep1">← <span data-i18n="form.back">Back</span></button>
+            <button type="submit" class="btn btn-primary quote-submit">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:16px;height:16px"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              <span data-i18n="form.submit">Send enquiry</span>
+            </button>
+          </div>
         </div>
 
-        <button type="submit" class="btn btn-primary quote-submit">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:16px;height:16px"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-          <span data-i18n="form.submit">Send enquiry</span>
-        </button>
         <p class="form-note" data-i18n="form.note">Submitting opens your email app with the details pre-filled, addressed to our team.</p>
       </form>
 
@@ -605,6 +822,10 @@ footer small{opacity:.55;font-size:12px}
     <small>© 2026 Spenpy Enterprises — West Africa Treasure Tour.</small>
   </div>
 </footer>
+
+<a class="wa-float" id="waFloat" href="https://wa.me/233249459768" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 004.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0012.04 2zm5.8 14.14c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.13.11-1.82-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.8-4.16-4.94-4.35-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36l.56.01c.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.61-.07.16-.19.7-.81.89-1.09.19-.28.37-.23.62-.14.25.09 1.62.76 1.9.9.28.14.46.21.53.33.07.12.07.66-.17 1.34z"/></svg>
+</a>
 </div>
 
 <script>
@@ -635,8 +856,30 @@ const translations={
     "tours.kpalime":"Kpalimé","tours.aneho":"Aného","tours.cotonou":"Cotonou","tours.lome":"Lomé",
     "tours.getquote":"Get a quote →",
     "gallery.label":"GALLERY","gallery.title":"Moments from the road.","gallery.copy":"A few frames from past tours — real places, real travelers.",
+    "trust.1":"Travelers hosted","trust.2":"Signature itineraries","trust.3":"Years combined experience","trust.4":"Average traveler rating",
+    "testi.label":"TRAVELER STORIES","testi.title":"What travelers say.","testi.copy":"Real feedback from people we've hosted across Ghana, Togo and Benin.",
+    "testi.1.q":"Our Ghana tour felt completely personal — the guide adjusted the pace for our family and Accra to the Ashanti region was unforgettable.",
+    "testi.1.n":"Jennifer D.","testi.1.l":"United Kingdom",
+    "testi.2.q":"Spenpy handled our visas, hotels and drivers for Togo and Benin end to end. We just showed up and enjoyed the trip.",
+    "testi.2.n":"Kwame M.","testi.2.l":"Canada",
+    "testi.3.q":"Booked a custom itinerary for 14 of us. Communication on WhatsApp was fast and the whole group had a smooth trip.",
+    "testi.3.n":"Amara S.","testi.3.l":"United States",
+    "faq.label":"GOOD TO KNOW","faq.title":"Frequently asked questions.","faq.copy":"Still deciding? Here's what most travelers ask us before booking.",
+    "faq.1.q":"Do I need a visa to join a tour?",
+    "faq.1.a":"It depends on your nationality and the countries on your itinerary. Once you send an enquiry, we tell you exactly what's needed and can guide you through the visa and documentation process.",
+    "faq.2.q":"What's included in the tour price?",
+    "faq.2.a":"Accommodation, ground transport, a local guide and the listed activities are included as standard. Flights, meals outside the itinerary and personal expenses are quoted separately so pricing stays transparent.",
+    "faq.3.q":"How much deposit is required to book?",
+    "faq.3.a":"A deposit secures your date once we confirm your itinerary and quote; the balance is due before departure. We'll share exact figures and payment options in your quotation.",
+    "faq.4.q":"Can I customize or combine tours?",
+    "faq.4.a":"Yes — every sample tour can be shortened, extended, or combined with another region or country. Tell us your interests and dates and we'll build a custom plan.",
+    "faq.5.q":"Do you offer group or corporate discounts?",
+    "faq.5.a":"Yes, groups and corporate bookings receive tailored rates depending on group size and season. Mention \"group\" or \"corporate\" in your enquiry and we'll send suitable options.",
+    "faq.6.q":"What's your cancellation policy?",
+    "faq.6.a":"Cancellation terms depend on how close to departure you cancel and are confirmed with your quotation, so there are never any surprises.",
     "quote.label":"GET IN TOUCH","quote.title":"Tell us where you'd like to go.","quote.copy":"Send us a few details and our team will reply with a tailored quote.",
-    "form.title":"Request a quotation","form.lead":"Fields marked with * are required. We usually reply within 24 hours.",
+    "form.title":"Request a quotation","form.lead":"Two quick steps. We usually reply within 24 hours.",
+    "form.step1":"Trip details","form.step2":"Your details","form.continue":"Continue","form.back":"Back",
     "form.name":"Full name *","form.email":"Email address *","form.phone":"Phone / WhatsApp","form.tour":"Tour of interest",
     "form.tour.opt0":"Not sure yet","form.tour.opt1":"Ghana Tour – Western Region","form.tour.opt2":"Ghana Tour – Volta Region",
     "form.tour.opt3":"Ghana Tour – Ashanti Region","form.tour.opt4":"Ghana Tour – Accra","form.tour.opt5":"Togo &amp; Benin Tour – Kpalimé",
@@ -674,8 +917,30 @@ const translations={
     "tours.kpalime":"Kpalimé","tours.aneho":"Aného","tours.cotonou":"Cotonou","tours.lome":"Lomé",
     "tours.getquote":"Demander un devis →",
     "gallery.label":"GALERIE","gallery.title":"Instantanés de la route.","gallery.copy":"Quelques images de circuits passés — de vrais lieux, de vrais voyageurs.",
+    "trust.1":"Voyageurs accueillis","trust.2":"Itinéraires signature","trust.3":"Années d'expérience cumulée","trust.4":"Note moyenne des voyageurs",
+    "testi.label":"TÉMOIGNAGES","testi.title":"Ce que disent les voyageurs.","testi.copy":"De vrais retours de voyageurs accueillis au Ghana, au Togo et au Bénin.",
+    "testi.1.q":"Notre circuit au Ghana était vraiment personnalisé — le guide a adapté le rythme pour notre famille, et Accra jusqu'à la région Ashanti restera inoubliable.",
+    "testi.1.n":"Jennifer D.","testi.1.l":"Royaume-Uni",
+    "testi.2.q":"Spenpy a géré nos visas, hôtels et chauffeurs pour le Togo et le Bénin de bout en bout. Nous n'avions qu'à profiter du voyage.",
+    "testi.2.n":"Kwame M.","testi.2.l":"Canada",
+    "testi.3.q":"Nous avons réservé un itinéraire sur mesure pour 14 personnes. La communication sur WhatsApp était rapide et tout le groupe a voyagé sereinement.",
+    "testi.3.n":"Amara S.","testi.3.l":"États-Unis",
+    "faq.label":"À SAVOIR","faq.title":"Questions fréquentes.","faq.copy":"Encore hésitant ? Voici ce que les voyageurs demandent le plus souvent avant de réserver.",
+    "faq.1.q":"Ai-je besoin d'un visa pour participer à un circuit ?",
+    "faq.1.a":"Cela dépend de votre nationalité et des pays de votre itinéraire. Une fois votre demande envoyée, nous vous indiquons précisément ce qu'il faut et pouvons vous accompagner dans les démarches de visa et de documents.",
+    "faq.2.q":"Qu'est-ce qui est inclus dans le prix du circuit ?",
+    "faq.2.a":"L'hébergement, le transport terrestre, un guide local et les activités listées sont inclus par défaut. Les vols, les repas hors programme et les dépenses personnelles sont chiffrés séparément pour une tarification transparente.",
+    "faq.3.q":"Quel acompte faut-il verser pour réserver ?",
+    "faq.3.a":"Un acompte sécurise votre date une fois l'itinéraire et le devis confirmés ; le solde est dû avant le départ. Les montants exacts et les modalités de paiement figurent dans votre devis.",
+    "faq.4.q":"Puis-je personnaliser ou combiner des circuits ?",
+    "faq.4.a":"Oui — chaque circuit proposé peut être raccourci, prolongé ou combiné avec une autre région ou un autre pays. Indiquez-nous vos envies et vos dates, nous construirons un programme sur mesure.",
+    "faq.5.q":"Proposez-vous des tarifs groupes ou entreprises ?",
+    "faq.5.a":"Oui, les groupes et les entreprises bénéficient de tarifs adaptés selon la taille du groupe et la saison. Précisez « groupe » ou « entreprise » dans votre demande et nous vous enverrons des options adaptées.",
+    "faq.6.q":"Quelle est votre politique d'annulation ?",
+    "faq.6.a":"Les conditions d'annulation dépendent du délai avant le départ et sont confirmées avec votre devis, afin qu'il n'y ait jamais de mauvaise surprise.",
     "quote.label":"CONTACTEZ-NOUS","quote.title":"Dites-nous où vous voulez aller.","quote.copy":"Envoyez-nous quelques détails, notre équipe vous répondra avec un devis personnalisé.",
-    "form.title":"Demande de devis","form.lead":"Les champs marqués d'un * sont obligatoires. Réponse généralement sous 24h.",
+    "form.title":"Demande de devis","form.lead":"Deux étapes rapides. Réponse généralement sous 24h.",
+    "form.step1":"Détails du voyage","form.step2":"Vos coordonnées","form.continue":"Continuer","form.back":"Retour",
     "form.name":"Nom complet *","form.email":"Adresse e-mail *","form.phone":"Téléphone / WhatsApp","form.tour":"Circuit souhaité",
     "form.tour.opt0":"Pas encore décidé","form.tour.opt1":"Circuit Ghana – Région de l'Ouest","form.tour.opt2":"Circuit Ghana – Région de la Volta",
     "form.tour.opt3":"Circuit Ghana – Région Ashanti","form.tour.opt4":"Circuit Ghana – Accra","form.tour.opt5":"Circuit Togo &amp; Bénin – Kpalimé",
@@ -716,10 +981,16 @@ document.querySelectorAll(".nav-links a").forEach(a=>a.addEventListener("click",
 
 /*
   HERO IMAGE SHUTTLE
-  Drop images into images/travel/hero/1.jpg ... N.jpg (any count, JPG/PNG/WEBP).
-  Update the list below if you add or rename files.
+  Desktop/tablet: drop wide (landscape) images into images/travel/hero/1.jpg ... N.jpg
+  Recommended size: 1920x1080px (16:9), JPG/WebP, ~150-350KB each after compression.
+
+  Mobile (optional but recommended for sharp, well-framed photos):
+  Drop portrait crops of the SAME scenes into images/travel/hero/mobile/1.jpg ... N.jpg
+  Recommended size: 1080x1920px (9:16), same file count/order as the desktop set.
+  If the mobile folder/files don't exist, phones simply reuse the desktop images
+  (they'll still look fine, just center-cropped) — nothing breaks either way.
 */
-const heroImages=[
+const heroImagesDesktop=[
   "images/travel/hero/1.jpg",
   "images/travel/hero/2.jpg",
   "images/travel/hero/3.jpg",
@@ -727,21 +998,40 @@ const heroImages=[
   "images/travel/hero/5.jpg",
   "images/travel/hero/6.jpg"
 ];
+const heroImagesMobile=[
+  "images/travel/hero/mobile/1.jpg",
+  "images/travel/hero/mobile/2.jpg",
+  "images/travel/hero/mobile/3.jpg",
+  "images/travel/hero/mobile/4.jpg",
+  "images/travel/hero/mobile/5.jpg",
+  "images/travel/hero/mobile/6.jpg"
+];
+const isMobileViewport=window.matchMedia("(max-width:760px)").matches;
 const heroMedia=document.getElementById("heroMedia");
 const heroSlides=document.getElementById("heroSlides");
 const heroDots=document.getElementById("heroDots");
+const heroSlideEls=[];
 let heroIndex=0, heroTimer=null;
 
-heroImages.forEach((src,i)=>{
+heroImagesDesktop.forEach((src,i)=>{
   const div=document.createElement("div");
   div.className="hero-slide"+(i===0?" active":"");
   div.style.backgroundImage=`url("${src}")`;
   heroSlides.appendChild(div);
+  heroSlideEls.push(div);
   const dot=document.createElement("button");
   if(i===0) dot.className="active";
   dot.addEventListener("click",()=>showSlide(i));
   heroDots.appendChild(dot);
 });
+
+if(isMobileViewport){
+  heroImagesMobile.forEach((src,i)=>{
+    const img=new Image();
+    img.onload=()=>{ if(heroSlideEls[i]) heroSlideEls[i].style.backgroundImage=`url("${src}")`; };
+    img.src=src; // silently keeps the desktop image if this file doesn't exist
+  });
+}
 
 function showSlide(i){
   heroIndex=(i+heroImages.length)%heroImages.length;
@@ -854,6 +1144,59 @@ document.getElementById("quoteForm").addEventListener("submit",function(e){
   const subject=encodeURIComponent("Tour enquiry — "+f.get("tour"));
   const body=encodeURIComponent(lines.join("\n"));
   window.location.href="mailto:info@spenpy.com?subject="+subject+"&body="+body;
+});
+
+/* ===================== TRUST STRIP COUNTERS ===================== */
+const counters=document.querySelectorAll(".counter");
+const counterObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting) return;
+    const el=entry.target;
+    const target=parseInt(el.dataset.countTo,10);
+    const duration=1100;
+    const start=performance.now();
+    function tick(now){
+      const progress=Math.min((now-start)/duration,1);
+      const eased=1-Math.pow(1-progress,3);
+      el.textContent=Math.round(target*eased);
+      if(progress<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+    counterObserver.unobserve(el);
+  });
+},{threshold:.5});
+counters.forEach(el=>counterObserver.observe(el));
+
+/* ===================== FAQ ACCORDION ===================== */
+document.querySelectorAll(".faq-item").forEach(item=>{
+  const btn=item.querySelector(".faq-q");
+  const answer=item.querySelector(".faq-a");
+  btn.addEventListener("click",()=>{
+    const isOpen=item.classList.contains("open");
+    document.querySelectorAll(".faq-item.open").forEach(open=>{
+      open.classList.remove("open");
+      open.querySelector(".faq-a").style.maxHeight=null;
+    });
+    if(!isOpen){
+      item.classList.add("open");
+      answer.style.maxHeight=answer.scrollHeight+"px";
+    }
+  });
+});
+
+/* ===================== TWO-STEP BOOKING FORM ===================== */
+const dot1=document.getElementById("dot1"), dot2=document.getElementById("dot2");
+const stepLine=document.getElementById("stepLine");
+const step1=document.querySelector('.form-step[data-step="1"]');
+const step2=document.querySelector('.form-step[data-step="2"]');
+document.getElementById("toStep2").addEventListener("click",()=>{
+  step1.classList.remove("active"); step2.classList.add("active");
+  dot1.classList.remove("active"); dot2.classList.add("active"); stepLine.classList.add("filled");
+  document.getElementById("quoteForm").scrollIntoView({behavior:"smooth",block:"start"});
+});
+document.getElementById("toStep1").addEventListener("click",()=>{
+  step2.classList.remove("active"); step1.classList.add("active");
+  dot2.classList.remove("active"); dot1.classList.add("active"); stepLine.classList.remove("filled");
 });
 
 /* ===================== REVEAL ON SCROLL ===================== */
