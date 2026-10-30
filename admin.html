@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Spenpy · Media Manager</title>
+<link rel="icon" type="image/png" href="images/logo.png">
+<style>
+:root{--navy:#083b63;--deep:#062f50;--ink:#04223a;--orange:#ff6b00;--blue:#3294d6;--soft:#eef4fa;--line:#dbe5ef;--muted:#5c7285;--ok:#13a06f;--bad:#d64545;--warn:#e29a00;--r:16px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--soft);color:var(--ink);line-height:1.45;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+code{font-family:ui-monospace,Consolas,monospace;font-size:11.5px;color:var(--muted);word-break:break-all}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+aside{position:sticky;top:0;height:100vh;background:var(--deep);color:#fff;padding:22px 16px;display:flex;flex-direction:column;gap:6px;overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 8px 18px;font-weight:800;font-size:17px}
+.brand img{width:34px}
+.brand small{display:block;font-weight:600;font-size:11px;opacity:.6;letter-spacing:.08em;text-transform:uppercase}
+.nav-btn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;border-radius:12px;color:rgba(255,255,255,.78);font-weight:700;font-size:14.5px;transition:.2s}
+.nav-btn:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-btn.on{background:var(--orange);color:#fff;box-shadow:0 10px 24px rgba(255,107,0,.35)}
+.nav-btn span.i{font-size:18px;width:22px;text-align:center}
+.nav-btn em{margin-left:auto;font-style:normal;font-size:11px;font-weight:800;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,.14)}
+.nav-btn.on em{background:rgba(255,255,255,.25)}
+.side-foot{margin-top:auto;padding:14px 8px 0;font-size:12px;color:rgba(255,255,255,.55);line-height:1.6}
+main{padding:clamp(16px,3vw,34px);min-width:0}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.top h1{font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.02em;color:var(--navy)}
+.top p{color:var(--muted);margin-top:4px;max-width:70ch}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:12px;font-weight:800;font-size:13.5px;transition:.2s}
+.btn.pri{background:var(--orange);color:#fff}.btn.pri:hover{filter:brightness(1.08)}
+.btn.gh{background:#fff;border:1px solid var(--line);color:var(--navy)}.btn.gh:hover{border-color:var(--navy)}
+.status{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-radius:14px;margin-bottom:18px;font-size:13.5px;border:1px solid}
+.status.ok{background:#e8f7f0;border-color:#b6e3cf;color:#0b5c40}
+.status.bad{background:#fdecec;border-color:#f3b9b9;color:#7b1d1d}
+.status.warn{background:#fff6e0;border-color:#f1d79a;color:#6b4a00}
+.status b{display:block}
+.sec{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(16px,2.2vw,24px);margin-bottom:20px}
+.sec-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.sec-h h2{font-size:1.15rem;color:var(--navy)}
+.sec-h p{color:var(--muted);font-size:13.5px;margin-top:3px;max-width:75ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.tile{position:relative;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:box-shadow .2s,border-color .2s}
+.tile.drag{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,107,0,.25)}
+.thumb{position:relative;aspect-ratio:4/3;background:repeating-conic-gradient(#eef3f8 0 25%,#fff 0 50%) 0 0/18px 18px;display:grid;place-items:center;overflow:hidden}
+.thumb img,.thumb video{width:100%;height:100%;object-fit:cover}
+.thumb.contain img{object-fit:contain;padding:14px}
+.empty{display:grid;place-items:center;gap:6px;text-align:center;color:var(--muted);font-size:12px;padding:10px}
+.empty b{font-size:26px;opacity:.5}
+.badge{position:absolute;top:8px;left:8px;padding:3px 9px;border-radius:99px;font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:rgba(6,47,80,.82);color:#fff;backdrop-filter:blur(4px)}
+.badge.c{background:var(--orange)}.badge.e{background:var(--warn)}
+.meta{padding:10px 12px 4px;display:flex;flex-direction:column;gap:3px}
+.meta b{font-size:13.5px;color:var(--navy)}
+.meta small{font-size:11.5px;color:var(--muted)}
+.acts{display:flex;gap:6px;padding:8px 12px 12px;margin-top:auto;flex-wrap:wrap}
+.acts button{flex:1;min-width:0;padding:8px 10px;border-radius:10px;font-size:12.5px;font-weight:800;white-space:nowrap;border:1px solid var(--line);background:#fff;color:var(--navy);transition:.2s}
+.acts button:hover{border-color:var(--navy)}
+.acts .up{background:var(--navy);color:#fff;border-color:var(--navy)}.acts .up:hover{background:var(--orange);border-color:var(--orange)}
+.acts .dl:hover{background:var(--bad);color:#fff;border-color:var(--bad)}
+.acts button.sq{flex:none;width:38px}
+.prog{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(0,0,0,.1);display:none;z-index:3}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--orange));transition:width .15s}
+.tile.busy .prog{display:block}
+.tile.busy::after{content:"Uploading…";position:absolute;inset:0;background:rgba(255,255,255,.7);display:grid;place-items:center;font-weight:800;color:var(--navy);z-index:2}
+.add{border:2px dashed #b9c9da;border-radius:var(--r);min-height:200px;display:grid;place-items:center;text-align:center;padding:16px;color:var(--muted);background:#f8fbfe;cursor:pointer;transition:.2s}
+.add:hover,.add.drag{border-color:var(--orange);background:#fff7f0;color:var(--orange)}
+.add b{display:block;font-size:30px;line-height:1}
+.add span{font-weight:800;font-size:13.5px}
+.add small{display:block;margin-top:4px;font-size:11.5px}
+details.fold{border:1px solid var(--line);border-radius:16px;margin-bottom:12px;background:#fff}
+details.fold summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 16px;font-weight:800;color:var(--navy)}
+details.fold summary::-webkit-details-marker{display:none}
+details.fold summary::after{content:"＋";margin-left:auto;color:var(--orange);font-size:18px}
+details.fold[open] summary::after{content:"－"}
+details.fold summary small{font-weight:600;color:var(--muted)}
+details.fold .in{padding:0 16px 16px}
+.note{font-size:12.5px;color:var(--muted);background:#f4f8fc;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:14px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--deep);color:#fff;padding:12px 18px;border-radius:14px;font-weight:700;font-size:14px;z-index:99;transition:.3s;max-width:90vw;box-shadow:0 18px 40px rgba(0,0,0,.3)}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.toast.err{background:var(--bad)}
+.menu-btn{display:none}
+@media(max-width:860px){
+  .app{grid-template-columns:1fr}
+  aside{position:static;height:auto;flex-direction:row;overflow-x:auto;padding:10px;gap:6px}
+  .brand,.side-foot{display:none}
+  .nav-btn{white-space:nowrap;width:auto;padding:10px 14px}
+  .nav-btn em{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside id="side">
+    <div class="brand"><img src="images/logo.png" alt=""><div>Spenpy<small>Media manager</small></div></div>
+    <div id="nav"></div>
+    <div class="side-foot">Changes go live immediately.<br>Every original is kept, so you can always restore it.</div>
+  </aside>
+  <main>
+    <div class="top">
+      <div><h1 id="title">Media manager</h1><p id="sub"></p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn gh" id="openPage" href="index.html" target="_blank" rel="noopener">View page ↗</a><button class="btn gh" id="reload">↻ Refresh</button></div>
+    </div>
+    <div id="status"></div>
+    <div id="view"></div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<input type="file" id="picker" hidden>
+
+<script>
+(function(){
+'use strict';
+/* ===================================================================
+   CATALOG: every image & video the website uses.
+   p = file path, l = label, u = where it shows, k = image|video
+   =================================================================== */
+const SERVICES=[['graphic-design','Graphic Design'],['web-design','Web Designing'],['digital-printing','Digital Printing'],['3d-printing','3D Printing'],['large-format','Large Format Printing'],['plastic-printing','Plastic Printing'],['labels-foils','Labels & Foils Printing'],['tshirt-caps','T-shirt & Caps Pressing'],['embroidery','Embroidery'],['souvenirs','Souvenirs'],['branding','Branding'],['offset','Digital Offset Printing'],['id-cards','ID Cards'],['invitations','Invitation Cards'],['framing','Picture Framing'],['photography','Photography']];
+const REGIONS=[['western-region','Western Region'],['volta-region','Volta Region'],['ashanti-region','Ashanti Region'],['accra','Accra'],['kpalime','Kpalimé (Togo)'],['aneho','Aného (Togo)'],['cotonou','Cotonou (Benin)'],['lome','Lomé (Togo)'],['ghana','Ghana – all photos'],['togo-benin','Togo & Benin – all photos']];
+const WORKS_USED='PrintCraft gallery · Home “Made at Spenpy” strip';
+
+const CATALOG=[
+ {id:'home',icon:'🏠',title:'Home page',page:'index.html',sub:'Images on the main page. Some are shared with other pages, so changing them updates both.',sections:[
+  {t:'Brand',d:'Your logo: header, loading screen and browser tab on every page.',slots:[{p:'images/logo.png',l:'Logo',u:'All pages',k:'image',max:800,contain:1}]},
+  {t:'Hero photo collage',d:'The four floating photos at the top of the Home page.',slots:[
+    {p:'images/printing/about.jpg',l:'Large-format printer',u:'Home hero · PrintCraft “The shop”'},
+    {p:'images/travel/hero/2.jpg',l:'Independence Arch',u:'Home hero · Treasure Tour slideshow'},
+    {p:'images/travel/tours/volta-region.jpg',l:'Volta Region',u:'Home hero · Treasure Tour card'},
+    {p:'images/works/7.jpg',l:'Branded bottles',u:'Home hero · '+WORKS_USED}]},
+  {t:'About Us',d:'Large photo beside the About Us text.',slots:[{p:'images/printing/process.jpg',l:'About Us photo',u:'Home · PrintCraft process section'}]},
+  {t:'Our Businesses panels',d:'Photos behind the five expanding business panels. Panels 3–5 show a design until you add a photo.',slots:[
+    {p:'images/works/1.jpg',l:'1 · Spenpy PrintCraft',u:'Home panel · '+WORKS_USED},
+    {p:'images/travel/hero/5.jpg',l:'2 · West Africa Treasure Tour',u:'Home panel · Treasure Tour slideshow'},
+    {p:'images/home/restaurant.jpg',l:'3 · African Dishes Services',u:'Home panel (optional photo)'},
+    {p:'images/home/sourcing.jpg',l:'4 · Spenpy Sourcing',u:'Home panel (optional photo)'},
+    {p:'images/home/mart.jpg',l:'5 · Spenpy Mart',u:'Home panel (optional photo)'}]},
+  {t:'“Made at Spenpy” photo strips',d:'These use the PrintCraft gallery photos. Manage them under PrintCraft → Gallery.',go:'print'}
+ ]},
+ {id:'print',icon:'🖨️',title:'PrintCraft',page:'printing.html',sub:'Spenpy PrintCraft: hero videos, shop photos, machine videos, gallery and service photos.',sections:[
+  {t:'Hero reel videos',d:'Short clips that shuffle in the PrintCraft banner. MP4, landscape, ideally under 15 MB each.',slots:[1,2,3,4,5].map(n=>({p:'videos/printing/'+n+'.mp4',l:'Reel clip '+n,u:'PrintCraft hero',k:'video'}))},
+  {t:'Shop & page photos',d:'Photos used around the PrintCraft page.',slots:[
+    {p:'images/printing/about.jpg',l:'The shop',u:'PrintCraft “The shop” · Home hero'},
+    {p:'images/printing/process.jpg',l:'Process / finishing',u:'PrintCraft · Home About Us'},
+    {p:'images/printing/services.jpg',l:'Services banner',u:'PrintCraft services · Home strip'},
+    {p:'images/printing/contact.jpg',l:'Shop front (contact)',u:'PrintCraft contact'}]},
+  {t:'Machine videos (the shop)',d:'The five clips in the “Meet the machines” player. They play one after another.',slots:[['large-printer','Large format printer'],['dtf','DTF printer'],['uv','UV printer'],['embroidery-4head','Embroidery machine (4-head)'],['heat-press','Heat-press machine']].map(a=>({p:'videos/printing/machines/'+a[0]+'.mp4',l:a[1],u:'PrintCraft machines',k:'video'}))},
+  {t:'Machine cover photos (optional)',d:'Shown before a video loads, or when a machine has no video yet.',slots:[['large-printer','Large format printer'],['dtf','DTF printer'],['uv','UV printer'],['embroidery-4head','Embroidery machine (4-head)'],['heat-press','Heat-press machine']].map(a=>({p:'images/printing/machines/'+a[0]+'.jpg',l:a[1],u:'PrintCraft machines',k:'image'}))},
+  {t:'Gallery · our work',d:'Photos 1–11 are the current gallery pictures. New photos (13 and up) appear in a “More work” filter.',folder:'images/works',ext:'jpg',start:13,u:WORKS_USED},
+  {t:'Gallery · photography',d:'Passport and America-size pictures. Photos 1–3 are the first gallery items; more appear automatically.',folder:'images/photography',ext:'jpg',start:4,u:'PrintCraft gallery'},
+  {t:'Service photos (when a service card is clicked)',d:'Open a service and add the photos people see when they click its card.',folders:SERVICES.map(s=>({name:s[1],folder:'images/services/'+s[0],ext:'jpg',start:1,u:'PrintCraft · '+s[1]}))}
+ ]},
+ {id:'travel',icon:'🌍',title:'Treasure Tour',page:'travel.html',sub:'West Africa Treasure Tour: slideshow, tour cards, gallery and photo albums.',sections:[
+  {t:'Hero slideshow',d:'The background pictures that fade in the Treasure Tour banner. Photos 7 and up are added automatically.',folder:'images/travel/hero',ext:'jpg',start:7,u:'Treasure Tour hero',skip:['video.mp4']},
+  {t:'Hero video',d:'The clip behind the “Watch the journey” button.',slots:[{p:'images/travel/hero/video.mp4',l:'Journey video',u:'Treasure Tour hero',k:'video'}]},
+  {t:'Tour cards',d:'The photo on each destination card.',slots:[['western-region','Western Region'],['volta-region','Volta Region'],['ashanti-region','Ashanti Region'],['accra','Accra'],['kpalime','Kpalimé (Togo)'],['aneho','Aného (Togo)'],['cotonou','Cotonou (Benin)'],['lome','Lomé (Togo)']].map(a=>({p:'images/travel/tours/'+a[0]+'.jpg',l:a[1],u:'Treasure Tour card',}))},
+  {t:'Gallery',d:'The photo grid on the Treasure Tour page. New photos (9 and up) appear automatically.',folder:'images/travel/gallery',ext:'jpg',start:9,u:'Treasure Tour gallery'},
+  {t:'Photo albums (when a country or card is clicked)',d:'More photos shown when a visitor clicks a tour card or the “More photos” button.',folders:REGIONS.map(s=>({name:s[1],folder:'images/travel/regions/'+s[0],ext:'jpg',start:1,u:'Treasure Tour · '+s[1]}))}
+ ]},
+ {id:'other',icon:'🍲',title:'Sourcing & African Dishes',page:'sourcing.html',sub:'These two pages currently use only the logo, flags and icons, so there are no photos to manage yet.',sections:[
+  {t:'Logo',d:'Both pages use the shared logo. Change it on the Home tab.',go:'home'},
+  {t:'Want photos on these pages?',d:'Tell your developer and photo slots will be added. They will then show up here automatically.',go:null}
+ ]},
+ {id:'all',icon:'🗂️',title:'All files',page:'index.html',sub:'Every image and video currently on the server, including anything not listed in the other tabs.',all:true}
+];
+
+/* ===================== state & helpers ===================== */
+const $=(s,c)=>(c||document).querySelector(s);
+const view=$('#view'), picker=$('#picker');
+let files=new Map(), removed=[], tab=(location.hash||'#home').slice(1), key=sessionStorage.getItem('spenpyKey')||'', serverOk=false;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const kb=n=>n>1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB';
+const kindOf=p=>/\.(mp4|webm)$/i.test(p)?'video':'image';
+let toastT;function toast(m,err){const t=$('#toast');t.textContent=m;t.className='toast show'+(err?' err':'');clearTimeout(toastT);toastT=setTimeout(()=>t.className='toast',err?5200:2600);}
+
+async function api(action,opt){
+  opt=opt||{};
+  const init={method:opt.method||'GET',headers:{'X-Requested-With':'spenpy-admin'}};
+  if(key) init.headers['X-Admin-Key']=key;
+  if(opt.body) init.body=opt.body;
+  let r;
+  try{ r=await fetch('api.php?action='+action+(opt.method==='POST'?'':'&t='+Date.now()),init); }
+  catch(e){ throw new Error('Cannot reach api.php. Is the site online?'); }
+  let j; const txt=await r.text();
+  try{ j=JSON.parse(txt); }catch(e){ throw new Error('api.php did not answer correctly. Upload api.php next to admin.html and make sure PHP is enabled.'); }
+  if(r.status===401){ const k=prompt('Passcode:'); if(k){ key=k; sessionStorage.setItem('spenpyKey',k); return api(action,opt);} throw new Error('Passcode required.'); }
+  if(!j.ok) throw new Error(j.error||'Something went wrong.');
+  return j;
+}
+
+/* ===================== image processing (in the browser) ===================== */
+async function loadBitmap(file){
+  if(window.createImageBitmap){ try{ return await createImageBitmap(file,{imageOrientation:'from-image'}); }catch(e){} }
+  return await new Promise((res,rej)=>{ const u=URL.createObjectURL(file), im=new Image(); im.onload=()=>{res(im);URL.revokeObjectURL(u);}; im.onerror=()=>rej(new Error('That image could not be read.')); im.src=u; });
+}
+async function processImage(file,ext,maxDim){
+  const bmp=await loadBitmap(file);
+  const w0=bmp.width||bmp.naturalWidth, h0=bmp.height||bmp.naturalHeight;
+  const sc=Math.min(1,(maxDim||2200)/Math.max(w0,h0));
+  const w=Math.round(w0*sc), h=Math.round(h0*sc);
+  const c=document.createElement('canvas'); c.width=w; c.height=h; const x=c.getContext('2d');
+  const mime=ext==='png'?'image/png':ext==='webp'?'image/webp':'image/jpeg';
+  if(mime==='image/jpeg'){ x.fillStyle='#fff'; x.fillRect(0,0,w,h); }
+  x.imageSmoothingQuality='high'; x.drawImage(bmp,0,0,w,h);
+  const blob=await new Promise(r=>c.toBlob(r,mime,.86));
+  if(!blob) throw new Error('Could not prepare the image.');
+  return blob;
+}
+const rid=()=>Array.from(crypto.getRandomValues(new Uint8Array(12))).map(b=>b.toString(16).padStart(2,'0')).join('');
+async function uploadTo(path,file,max,onP){
+  const ext=path.split('.').pop().toLowerCase(); let blob;
+  if(kindOf(path)==='image'){
+    if(!/^image\//.test(file.type)&&!/\.(jpe?g|png|webp|gif|bmp|avif|heic)$/i.test(file.name)) throw new Error('Please choose a picture (JPG, PNG or WEBP).');
+    blob=await processImage(file,ext==='jpeg'?'jpg':ext,max);
+  }else{
+    if(!/\.mp4$/i.test(file.name)&&file.type!=='video/mp4') throw new Error('Please choose an MP4 video (phone .mov files need converting to MP4 first).');
+    blob=file;
+  }
+  const id=rid(), CH=900*1024, total=Math.max(1,Math.ceil(blob.size/CH)); let last;
+  for(let i=0;i<total;i++){
+    const fd=new FormData(); fd.append('path',path); fd.append('id',id); fd.append('index',i); fd.append('total',total);
+    fd.append('chunk',blob.slice(i*CH,(i+1)*CH),'chunk.bin');
+    last=await api('upload',{method:'POST',body:fd}); onP&&onP((i+1)/total);
+  }
+  return last;
+}
+
+/* ===================== tiles ===================== */
+function tile(o){
+  const f=files.get(o.p), kind=o.k||kindOf(o.p), exists=!!f;
+  const el=document.createElement('div'); el.className='tile';
+  const v=exists?(o.p+'?v='+f.mtime):'';
+  const media=!exists?'<div class="empty"><b>'+(kind==='video'?'🎬':'🖼️')+'</b>No file yet<br>the site shows its default design</div>'
+    :kind==='video'?'<video src="'+v+'" muted loop playsinline preload="metadata" controls></video>':'<img src="'+v+'" alt="" loading="lazy">';
+  const badge=!exists?'<span class="badge e">Empty</span>':f.custom?'<span class="badge c">Customised</span>':'<span class="badge">Original</span>';
+  el.innerHTML='<div class="thumb'+(o.contain?' contain':'')+'">'+media+badge+'<div class="prog"><i></i></div></div>'+
+    '<div class="meta"><b>'+esc(o.l||o.p.split('/').pop())+'</b><code>'+esc(o.p)+'</code>'+(exists?'<small>'+kb(f.size)+'</small>':'')+(o.u?'<small>Shows on: '+esc(o.u)+'</small>':'')+'</div>'+
+    '<div class="acts"><button class="up">'+(exists?'Replace':'Upload')+'</button>'+(exists&&f.custom?'<button class="rs" title="Put the original back">↺ Restore</button>':'')+(exists?'<button class="dl sq" title="Delete" aria-label="Delete">🗑</button>':'')+'</div>';
+  const pick=()=>{ picker.accept=kind==='video'?'video/mp4':'image/*'; picker.multiple=false; picker.onchange=()=>{ if(picker.files[0]) run(picker.files[0]); picker.value=''; }; picker.click(); };
+  async function run(file){
+    el.classList.add('busy'); const bar=$('.prog i',el);
+    try{ await uploadTo(o.p,file,o.max,p=>bar.style.width=(p*100)+'%'); toast('Saved ✓ '+(o.l||o.p)); await refresh(); }
+    catch(e){ toast(e.message,true); el.classList.remove('busy'); }
+  }
+  $('.up',el).onclick=pick; $('.thumb',el).addEventListener('dblclick',pick);
+  const rs=$('.rs',el); if(rs) rs.onclick=async()=>{ if(!confirm('Put the original back?')) return; try{ await api('restore',{method:'POST',body:fd1(o.p)}); toast('Original restored ✓'); await refresh(); }catch(e){toast(e.message,true);} };
+  const dl=$('.dl',el); if(dl) dl.onclick=async()=>{ if(!confirm('Delete this file from the website?\nYou can restore it afterwards if it was an original.')) return; try{ await api('delete',{method:'POST',body:fd1(o.p)}); toast('Deleted'); await refresh(); }catch(e){toast(e.message,true);} };
+  ['dragenter','dragover'].forEach(n=>el.addEventListener(n,e=>{e.preventDefault();el.classList.add('drag');}));
+  ['dragleave','drop'].forEach(n=>el.addEventListener(n,e=>{e.preventDefault();el.classList.remove('drag');}));
+  el.addEventListener('drop',e=>{ const f0=e.dataTransfer.files[0]; if(f0) run(f0); });
+  return el;
+}
+function fd1(p){ const fd=new FormData(); fd.append('path',p); return fd; }
+
+function addTile(fo){
+  const el=document.createElement('div'); el.className='add'; el.tabIndex=0;
+  el.innerHTML='<div><b>＋</b><span>Add photos</span><small>Click or drop pictures here<br>(several at once is fine)</small></div>';
+  const nextNum=()=>{ let m=fo.start-1; const re=new RegExp('^'+fo.folder.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'/(\\d+)\\.'); files.forEach((_,p)=>{ const x=re.exec(p); if(x) m=Math.max(m,+x[1]); }); return m+1; };
+  async function many(list){
+    list=[...list].filter(f=>/^image\//.test(f.type)); if(!list.length){ toast('Please choose pictures.',true); return; }
+    let n=nextNum(), ok=0; el.querySelector('span').textContent='Uploading 0/'+list.length+'…';
+    for(const f of list){
+      try{ await uploadTo(fo.folder+'/'+(n++)+'.'+fo.ext,f,2200); ok++; el.querySelector('span').textContent='Uploading '+ok+'/'+list.length+'…'; }
+      catch(e){ toast(e.message,true); }
+    }
+    if(ok) toast(ok+' photo'+(ok>1?'s':'')+' added ✓'); await refresh();
+  }
+  const pick=()=>{ picker.accept='image/*'; picker.multiple=true; picker.onchange=()=>{ if(picker.files.length) many(picker.files); picker.value=''; }; picker.click(); };
+  el.onclick=pick; el.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();pick();} };
+  ['dragenter','dragover'].forEach(n=>el.addEventListener(n,e=>{e.preventDefault();el.classList.add('drag');}));
+  ['dragleave','drop'].forEach(n=>el.addEventListener(n,e=>{e.preventDefault();el.classList.remove('drag');}));
+  el.addEventListener('drop',e=>many(e.dataTransfer.files));
+  return el;
+}
+const numKey=p=>{ const m=/(\d+)\.\w+$/.exec(p); return m?+m[1]:1e9; };
+function folderFiles(folder,skip){
+  const out=[]; files.forEach((f,p)=>{ if(p.startsWith(folder+'/')&&p.indexOf('/',folder.length+1)<0&&!(skip||[]).includes(p.split('/').pop())) out.push(p); });
+  return out.sort((a,b)=>numKey(a)-numKey(b)||a.localeCompare(b));
+}
+function folderGrid(fo){
+  const g=document.createElement('div'); g.className='grid';
+  folderFiles(fo.folder,fo.skip).forEach(p=>g.appendChild(tile({p:p,l:'Photo '+(numKey(p)<1e9?numKey(p):p.split('/').pop()),u:fo.u,max:2200})));
+  g.appendChild(addTile(fo)); return g;
+}
+
+/* ===================== views ===================== */
+function secBox(s){ const b=document.createElement('section'); b.className='sec'; b.innerHTML='<div class="sec-h"><div><h2>'+esc(s.t)+'</h2>'+(s.d?'<p>'+esc(s.d)+'</p>':'')+'</div></div>'; return b; }
+function render(){
+  const cat=CATALOG.find(c=>c.id===tab)||CATALOG[0]; tab=cat.id;
+  $('#title').textContent=cat.title; $('#sub').textContent=cat.sub; $('#openPage').href=cat.page;
+  $('#nav').innerHTML=''; CATALOG.forEach(c=>{ const b=document.createElement('button'); b.className='nav-btn'+(c.id===tab?' on':''); b.innerHTML='<span class="i">'+c.icon+'</span>'+esc(c.title); b.onclick=()=>{ location.hash=c.id; tab=c.id; render(); window.scrollTo(0,0); }; $('#nav').appendChild(b); });
+  view.innerHTML='';
+  if(cat.all){ renderAll(); return; }
+  cat.sections.forEach(s=>{
+    const box=secBox(s);
+    if(s.slots){ const g=document.createElement('div'); g.className='grid'; s.slots.forEach(o=>{ if(!o.k) o.k=kindOf(o.p); g.appendChild(tile(o)); }); box.appendChild(g); }
+    else if(s.folder){ box.appendChild(folderGrid(s)); }
+    else if(s.folders){ s.folders.forEach(fo=>{ const d=document.createElement('details'); d.className='fold'; const n=folderFiles(fo.folder).length; d.innerHTML='<summary>'+esc(fo.name)+' <small>'+n+' photo'+(n===1?'':'s')+'</small></summary><div class="in"></div>'; $('.in',d).appendChild(folderGrid(fo)); if(openFolds.has(fo.folder)) d.open=true; d.addEventListener('toggle',()=>{ d.open?openFolds.add(fo.folder):openFolds.delete(fo.folder); }); box.appendChild(d); }); }
+    else if(s.go!==undefined){ if(s.go){ const b=document.createElement('button'); b.className='btn gh'; b.textContent='Open '+CATALOG.find(c=>c.id===s.go).title+' →'; b.onclick=()=>{ tab=s.go; location.hash=tab; render(); window.scrollTo(0,0); }; box.appendChild(b); } }
+    view.appendChild(box);
+  });
+}
+const openFolds=new Set();
+function renderAll(){
+  const byDir={}; files.forEach((f,p)=>{ const d=p.slice(0,p.lastIndexOf('/')); (byDir[d]=byDir[d]||[]).push(p); });
+  const dirs=Object.keys(byDir).sort();
+  if(!dirs.length){ view.innerHTML='<div class="sec">No media files found on the server yet.</div>'; }
+  dirs.forEach(d=>{ const box=secBox({t:d+'/',d:byDir[d].length+' file'+(byDir[d].length>1?'s':'')}); const g=document.createElement('div'); g.className='grid'; byDir[d].sort((a,b)=>numKey(a)-numKey(b)||a.localeCompare(b)).forEach(p=>g.appendChild(tile({p:p,l:p.split('/').pop(),max:2200}))); box.appendChild(g); view.appendChild(box); });
+  if(removed.length){ const box=secBox({t:'Deleted originals',d:'These original files were removed. Restore any you want back.'}); const g=document.createElement('div'); g.className='grid'; removed.forEach(p=>{ const el=document.createElement('div'); el.className='tile'; el.innerHTML='<div class="meta"><b>'+esc(p.split('/').pop())+'</b><code>'+esc(p)+'</code></div><div class="acts"><button class="up">↺ Restore</button></div>'; $('.up',el).onclick=async()=>{ try{ await api('restore',{method:'POST',body:fd1(p)}); toast('Restored ✓'); await refresh(); }catch(e){toast(e.message,true);} }; g.appendChild(el); }); box.appendChild(g); view.appendChild(box); }
+}
+
+/* ===================== server status & refresh ===================== */
+async function check(){
+  const st=$('#status');
+  try{
+    const p=await api('ping'); serverOk=true;
+    let msg='<b>Connected ✓</b>PHP '+esc(p.php)+' · saving is enabled.';
+    let cls='ok';
+    if(!p.writable){ cls='bad'; msg='<b>The website folder is not writable</b>Ask your host (or use cPanel File Manager) to make the website folder writable (permission 755) so uploads can be saved.'; serverOk=false; }
+    else if(p.imagesDir===false){ cls='warn'; msg='<b>Connected, but the images folder is read-only</b>Set the “images” and “videos” folders to permission 755 in cPanel File Manager.'; }
+    st.innerHTML='<div class="status '+cls+'"><div>'+msg+'</div></div>';
+  }catch(e){
+    serverOk=false;
+    st.innerHTML='<div class="status bad"><div><b>Can’t save changes yet</b>'+esc(e.message)+'<br>Make sure <code>api.php</code> is uploaded in the same folder as this page and that PHP is enabled for your hosting.</div></div>';
+  }
+}
+async function refresh(){
+  try{ const j=await api('list'); files=new Map(j.files.map(f=>[f.path,f])); removed=j.removed||[]; }catch(e){ files=new Map(); removed=[]; }
+  const y=window.scrollY; render(); window.scrollTo(0,y);
+}
+$('#reload').onclick=async()=>{ await check(); await refresh(); toast('Refreshed'); };
+window.addEventListener('hashchange',()=>{ const t=(location.hash||'#home').slice(1); if(t!==tab){ tab=t; render(); } });
+(async function init(){ await check(); await refresh(); })();
+})();
+</script>
+</body>
+</html>

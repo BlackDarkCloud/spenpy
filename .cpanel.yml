@@ -2,4 +2,7 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home2/spenpyc4/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp index.html printing.html travel.html sourcing.html restaurant.html admin.html api.php .htaccess $DEPLOYPATH
+    - /bin/mkdir -p $DEPLOYPATH/images $DEPLOYPATH/videos
+    - /bin/cp -Rn images $DEPLOYPATH || /bin/true
+    - /bin/cp -Rn videos $DEPLOYPATH || /bin/true

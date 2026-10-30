@@ -1,0 +1,12 @@
+# Spenpy site settings
+Options -Indexes
+
+# Always check for a newer version of images/videos, so photos changed in admin.html show immediately
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpe?g|png|webp|mp4|webm)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "^(admin\.html|api\.php)$">
+    Header set X-Robots-Tag "noindex, nofollow"
+  </FilesMatch>
+</IfModule>
