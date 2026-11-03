@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Spenpy · Media Manager</title>
+<title>Spenpy · Admin</title>
 <link rel="icon" type="image/png" href="images/logo.png">
 <style>
 :root{--navy:#083b63;--deep:#062f50;--ink:#04223a;--orange:#ff6b00;--blue:#3294d6;--soft:#eef4fa;--line:#dbe5ef;--muted:#5c7285;--ok:#13a06f;--bad:#d64545;--warn:#e29a00;--r:16px}
@@ -88,13 +88,69 @@ details.fold .in{padding:0 16px 16px}
   .nav-btn{white-space:nowrap;width:auto;padding:10px 14px}
   .nav-btn em{display:none}
 }
+
+/* ----- login ----- */
+.login{position:fixed;inset:0;z-index:200;background:linear-gradient(160deg,var(--navy),var(--ink));display:grid;place-items:center;padding:20px}
+.login[hidden]{display:none}
+.lbox{background:#fff;border-radius:24px;padding:30px;width:min(420px,100%);box-shadow:0 40px 90px rgba(0,0,0,.4)}
+.lbox .brand{color:var(--navy);padding:0 0 14px}.lbox h1{font-size:1.5rem;color:var(--navy)}.lbox p{color:var(--muted);font-size:14px;margin:4px 0 8px}
+label.f{display:block;font-weight:700;font-size:13px;color:var(--navy);margin:12px 0 5px}
+.inp{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #cfdbe7;font:inherit;background:#fff;outline:0}.inp:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(50,148,214,.18)}
+textarea.inp{min-height:84px;resize:vertical}
+.msg{border-radius:12px;padding:10px 14px;font-size:13.5px;margin-top:12px}.msg.bad{background:#fdecec;border:1px solid #f3b9b9;color:#7b1d1d}.msg:empty{display:none}
+.msg.info{background:#fff6e0;border:1px solid #f1d79a;color:#6b4a00}
+.nav-h{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);padding:14px 14px 6px}
+.userbox{margin-top:10px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.07);font-size:12.5px;line-height:1.5}
+.userbox b{display:block;color:#fff;font-size:13.5px}.userbox button{margin-top:8px;font-weight:800;font-size:12.5px;color:var(--orange)}
+/* ----- shop ----- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:20px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.stat b{display:block;font-size:1.9rem;color:var(--navy);letter-spacing:-.02em}.stat span{color:var(--muted);font-size:13px}
+.stat.hot{background:var(--orange);border-color:var(--orange)}.stat.hot b,.stat.hot span{color:#fff}
+.bar2{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.bar2 .inp{max-width:300px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 14px;border-radius:99px;background:#fff;border:1px solid var(--line);font-weight:800;font-size:13px;color:var(--navy)}.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.pcard .thumb{aspect-ratio:1/1}.pcard.off{opacity:.62}
+.price{font-weight:800;color:var(--navy)}
+.badge.g{background:var(--ok)}.badge.r{background:var(--bad)}
+.ocard{border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;background:#fff}
+.ohead{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.ohead h3{font-size:1.05rem;color:var(--navy)}
+.ogrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+.ogrid small{display:block;color:var(--muted);font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.items{width:100%;border-collapse:collapse;font-size:13.5px}.items td{padding:5px 0;border-bottom:1px dashed var(--line)}.items td:last-child{text-align:right}
+.sel{padding:9px 12px;border-radius:10px;border:1px solid var(--line);font-weight:800;background:#fff;color:var(--navy)}
+.sel.s-pending{background:#fff2d6}.sel.s-confirmed{background:#e0f0ff}.sel.s-shipped{background:#e9e4ff}.sel.s-delivered{background:#dff5ea}.sel.s-cancelled{background:#fde4e4}
+table.tbl{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.tbl th{text-align:left;background:#f4f8fc;color:var(--navy);padding:11px 14px;font-size:12px;letter-spacing:.06em;text-transform:uppercase}.tbl td{padding:11px 14px;border-top:1px solid var(--line)}
+.tbl-wrap{overflow-x:auto}
+.ov{position:fixed;inset:0;z-index:150;background:rgba(4,20,36,.62);backdrop-filter:blur(4px);display:grid;place-items:center;padding:14px}
+.dlg{background:#fff;border-radius:22px;padding:24px;width:min(620px,100%);max-height:calc(100vh - 28px);overflow:auto;box-shadow:0 40px 90px rgba(0,0,0,.4)}
+.dlg h2{color:var(--navy);margin-bottom:6px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.imgpick{display:flex;gap:14px;align-items:center;margin-top:6px}.imgpick .pv{width:92px;height:92px;border-radius:14px;background:#eef3f8;overflow:hidden;display:grid;place-items:center;color:var(--muted);font-size:12px;text-align:center;flex:none}.imgpick .pv img{width:100%;height:100%;object-fit:cover}
+.tog{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--navy);margin-top:14px}
+@media(max-width:700px){.ogrid,.row2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+<div class="login" id="login" hidden>
+  <div class="lbox">
+    <div class="brand"><img src="images/logo.png" alt=""><div>Spenpy<small>Admin panel</small></div></div>
+    <h1>Admin login</h1><p>Use your Spenpy Mart admin account. It is the same login as the shop.</p>
+    <form id="loginF" novalidate>
+      <label class="f" for="lEmail">Email</label><input class="inp" id="lEmail" type="email" autocomplete="username">
+      <label class="f" for="lPass">Password</label><input class="inp" id="lPass" type="password" autocomplete="current-password">
+      <div class="msg bad" id="lErr"></div>
+      <button class="btn pri" style="width:100%;justify-content:center;margin-top:16px" id="lGo" type="submit">Log in</button>
+    </form>
+    <p style="margin-top:14px;font-size:12.5px">First time? Open <a href="mart-setup.php" style="color:var(--orange);font-weight:800">mart-setup.php</a> to create the admin account.</p>
+  </div>
+</div>
 <div class="app">
   <aside id="side">
-    <div class="brand"><img src="images/logo.png" alt=""><div>Spenpy<small>Media manager</small></div></div>
+    <div class="brand"><img src="images/logo.png" alt=""><div>Spenpy<small>Admin panel</small></div></div>
     <div id="nav"></div>
+    <div class="userbox" id="userbox"></div>
     <div class="side-foot">Changes go live immediately.<br>Every original is kept, so you can always restore it.</div>
   </aside>
   <main>
@@ -120,6 +176,13 @@ const SERVICES=[['graphic-design','Graphic Design'],['web-design','Web Designing
 const REGIONS=[['western-region','Western Region'],['volta-region','Volta Region'],['ashanti-region','Ashanti Region'],['accra','Accra'],['kpalime','Kpalimé (Togo)'],['aneho','Aného (Togo)'],['cotonou','Cotonou (Benin)'],['lome','Lomé (Togo)'],['ghana','Ghana – all photos'],['togo-benin','Togo & Benin – all photos']];
 const WORKS_USED='PrintCraft gallery · Home “Made at Spenpy” strip';
 
+const MACHINES=[['large-printer','Large format printer'],['dtf','DTF printer'],['uv','UV printer'],['embroidery-4head','Embroidery machine (4-head)'],['heat-press','Heat-press machine']];
+const TOURS=[['western-region','Western Region'],['volta-region','Volta Region'],['ashanti-region','Ashanti Region'],['accra','Accra'],['kpalime','Kpalimé (Togo)'],['aneho','Aného (Togo)'],['cotonou','Cotonou (Benin)'],['lome','Lomé (Togo)']];
+
+const FOOD=['Banku and Tilapia','Banku and Cat Fish','Gboma','Okro','Ampesi','Fufu and Light Soup','Palm Nut Soup','Groundnut Soup','Kenkey and Fried Fish','Wakye','Grilled Pork','Grilled Goat','Grilled Chicken','Grilled Tilapia','Grilled Catfish'];
+const SRC=['Saloon & SUV imports','Vehicle spare parts','Office & industrial printers','Printer parts & consumables','Water treatment plants','Filtration & purification units'];
+const rng=(n,f)=>Array.from({length:n},(_,i)=>f(i+1));
+
 const CATALOG=[
  {id:'home',icon:'🏠',title:'Home page',page:'index.html',sub:'Images on the main page. Some are shared with other pages, so changing them updates both.',sections:[
   {t:'Brand',d:'Your logo: header, loading screen and browser tab on every page.',slots:[{p:'images/logo.png',l:'Logo',u:'All pages',k:'image',max:800,contain:1}]},
@@ -138,54 +201,65 @@ const CATALOG=[
   {t:'“Made at Spenpy” photo strips',d:'These use the PrintCraft gallery photos. Manage them under PrintCraft → Gallery.',go:'print'}
  ]},
  {id:'print',icon:'🖨️',title:'PrintCraft',page:'printing.html',sub:'Spenpy PrintCraft: hero videos, shop photos, machine videos, gallery and service photos.',sections:[
-  {t:'Hero reel videos',d:'Short clips that shuffle in the PrintCraft banner. MP4, landscape, ideally under 15 MB each.',slots:[1,2,3,4,5].map(n=>({p:'videos/printing/'+n+'.mp4',l:'Reel clip '+n,u:'PrintCraft hero',k:'video'}))},
+  {t:'Hero reel videos',d:'Short clips that shuffle in the PrintCraft banner. MP4, landscape, ideally under 15 MB each.',slots:rng(5,n=>({p:'videos/printing/'+n+'.mp4',l:'Reel clip '+n,u:'PrintCraft hero',k:'video'}))},
   {t:'Shop & page photos',d:'Photos used around the PrintCraft page.',slots:[
     {p:'images/printing/about.jpg',l:'The shop',u:'PrintCraft “The shop” · Home hero'},
     {p:'images/printing/process.jpg',l:'Process / finishing',u:'PrintCraft · Home About Us'},
     {p:'images/printing/services.jpg',l:'Services banner',u:'PrintCraft services · Home strip'},
     {p:'images/printing/contact.jpg',l:'Shop front (contact)',u:'PrintCraft contact'}]},
-  {t:'Machine videos (the shop)',d:'The five clips in the “Meet the machines” player. They play one after another.',slots:[['large-printer','Large format printer'],['dtf','DTF printer'],['uv','UV printer'],['embroidery-4head','Embroidery machine (4-head)'],['heat-press','Heat-press machine']].map(a=>({p:'videos/printing/machines/'+a[0]+'.mp4',l:a[1],u:'PrintCraft machines',k:'video'}))},
-  {t:'Machine cover photos (optional)',d:'Shown before a video loads, or when a machine has no video yet.',slots:[['large-printer','Large format printer'],['dtf','DTF printer'],['uv','UV printer'],['embroidery-4head','Embroidery machine (4-head)'],['heat-press','Heat-press machine']].map(a=>({p:'images/printing/machines/'+a[0]+'.jpg',l:a[1],u:'PrintCraft machines',k:'image'}))},
-  {t:'Gallery · our work',d:'Photos 1–11 are the current gallery pictures. New photos (13 and up) appear in a “More work” filter.',folder:'images/works',ext:'jpg',start:13,u:WORKS_USED},
-  {t:'Gallery · photography',d:'Passport and America-size pictures. Photos 1–3 are the first gallery items; more appear automatically.',folder:'images/photography',ext:'jpg',start:4,u:'PrintCraft gallery'},
+  {t:'Machine videos (the shop)',d:'The five clips in the “Meet the machines” player. They play one after another.',slots:MACHINES.map(a=>({p:'videos/printing/machines/'+a[0]+'.mp4',l:a[1],u:'PrintCraft machines',k:'video'}))},
+  {t:'Machine cover photos (optional)',d:'Shown before a video loads, or when a machine has no video yet.',slots:MACHINES.map(a=>({p:'images/printing/machines/'+a[0]+'.jpg',l:a[1],u:'PrintCraft machines',k:'image'}))},
+  {t:'Gallery · our work',d:'Photos 1–11 are the current gallery pictures. New photos (13 and up) appear in a “More work” filter.',folder:'images/works',ext:'jpg',start:13,expect:11,u:WORKS_USED},
+  {t:'Gallery · photography',d:'Passport and America-size pictures. Photos 1–3 are the first gallery items; more appear automatically.',folder:'images/photography',ext:'jpg',start:4,expect:3,u:'PrintCraft gallery'},
   {t:'Service photos (when a service card is clicked)',d:'Open a service and add the photos people see when they click its card.',folders:SERVICES.map(s=>({name:s[1],folder:'images/services/'+s[0],ext:'jpg',start:1,u:'PrintCraft · '+s[1]}))}
  ]},
  {id:'travel',icon:'🌍',title:'Treasure Tour',page:'travel.html',sub:'West Africa Treasure Tour: slideshow, tour cards, gallery and photo albums.',sections:[
-  {t:'Hero slideshow',d:'The background pictures that fade in the Treasure Tour banner. Photos 7 and up are added automatically.',folder:'images/travel/hero',ext:'jpg',start:7,u:'Treasure Tour hero',skip:['video.mp4']},
+  {t:'Hero slideshow',d:'The background pictures that fade in the Treasure Tour banner. Photos 7 and up are added automatically.',folder:'images/travel/hero',ext:'jpg',start:7,expect:6,u:'Treasure Tour hero',skip:['video.mp4']},
   {t:'Hero video',d:'The clip behind the “Watch the journey” button.',slots:[{p:'images/travel/hero/video.mp4',l:'Journey video',u:'Treasure Tour hero',k:'video'}]},
-  {t:'Tour cards',d:'The photo on each destination card.',slots:[['western-region','Western Region'],['volta-region','Volta Region'],['ashanti-region','Ashanti Region'],['accra','Accra'],['kpalime','Kpalimé (Togo)'],['aneho','Aného (Togo)'],['cotonou','Cotonou (Benin)'],['lome','Lomé (Togo)']].map(a=>({p:'images/travel/tours/'+a[0]+'.jpg',l:a[1],u:'Treasure Tour card',}))},
-  {t:'Gallery',d:'The photo grid on the Treasure Tour page. New photos (9 and up) appear automatically.',folder:'images/travel/gallery',ext:'jpg',start:9,u:'Treasure Tour gallery'},
+  {t:'Tour cards',d:'The photo on each destination card.',slots:TOURS.map(a=>({p:'images/travel/tours/'+a[0]+'.jpg',l:a[1],u:'Treasure Tour card'}))},
+  {t:'Gallery',d:'The photo grid on the Treasure Tour page. Photos 1–8 are the current slots; 9 and up are added automatically. Empty slots are hidden on the website.',folder:'images/travel/gallery',ext:'jpg',start:9,expect:8,u:'Treasure Tour gallery'},
   {t:'Photo albums (when a country or card is clicked)',d:'More photos shown when a visitor clicks a tour card or the “More photos” button.',folders:REGIONS.map(s=>({name:s[1],folder:'images/travel/regions/'+s[0],ext:'jpg',start:1,u:'Treasure Tour · '+s[1]}))}
  ]},
- {id:'other',icon:'🍲',title:'Sourcing & African Dishes',page:'sourcing.html',sub:'These two pages currently use only the logo, flags and icons, so there are no photos to manage yet.',sections:[
-  {t:'Logo',d:'Both pages use the shared logo. Change it on the Home tab.',go:'home'},
-  {t:'Want photos on these pages?',d:'Tell your developer and photo slots will be added. They will then show up here automatically.',go:null}
+ {id:'food',icon:'🍲',title:'African Dishes',page:'restaurant.html',sub:'African Dishes Services: a photo for each dish, plus the About and grill banner pictures.',sections:[
+  {t:'Dish photos',d:'The picture on each menu card. Without a photo the card shows a coloured design.',slots:FOOD.map((n,i)=>({p:'images/food/'+(i+1)+'.jpg',l:(i+1)+' · '+n,u:'African Dishes menu'}))},
+  {t:'About & grill banner',d:'Optional photos for the “Our kitchen” section and the grills banner.',slots:[
+    {p:'images/food/about.jpg',l:'Our kitchen (About)',u:'African Dishes · About'},
+    {p:'images/food/grills.jpg',l:'Grills banner background',u:'African Dishes · Grills banner'}]}
  ]},
- {id:'all',icon:'🗂️',title:'All files',page:'index.html',sub:'Every image and video currently on the server, including anything not listed in the other tabs.',all:true}
+ {id:'sourcing',icon:'📦',title:'Sourcing',page:'sourcing.html',sub:'Spenpy Sourcing: a photo for each product type.',sections:[
+  {t:'Product photos',d:'The picture on each sourcing card. Without a photo the card shows a coloured design.',slots:SRC.map((n,i)=>({p:'images/sourcing/'+(i+1)+'.jpg',l:(i+1)+' · '+n,u:'Sourcing products'}))}
+ ]},
+ {id:'all',icon:'🗂️',title:'All files',page:'index.html',sub:'Every image and video currently on the server, including product pictures and anything not listed in the other tabs.',all:true}
 ];
+const SHOPTABS=[{id:'shop-overview',icon:'📊',title:'Overview',sub:'A quick look at your shop.'},{id:'shop-products',icon:'🛍️',title:'Products',sub:'Add, edit and hide the products customers see in Spenpy Mart.'},{id:'shop-orders',icon:'🧾',title:'Orders',sub:'Process customer orders: confirm, send out and deliver.'},{id:'shop-customers',icon:'👥',title:'Customers',sub:'People who registered in Spenpy Mart.'}];
 
 /* ===================== state & helpers ===================== */
 const $=(s,c)=>(c||document).querySelector(s);
 const view=$('#view'), picker=$('#picker');
-let files=new Map(), removed=[], tab=(location.hash||'#home').slice(1), key=sessionStorage.getItem('spenpyKey')||'', serverOk=false;
+let files=new Map(), removed=[], tab=(location.hash||'#shop-overview').slice(1), serverOk=false, me=null;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const kb=n=>n>1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB';
 const kindOf=p=>/\.(mp4|webm)$/i.test(p)?'video':'image';
 let toastT;function toast(m,err){const t=$('#toast');t.textContent=m;t.className='toast show'+(err?' err':'');clearTimeout(toastT);toastT=setTimeout(()=>t.className='toast',err?5200:2600);}
 
-async function api(action,opt){
-  opt=opt||{};
-  const init={method:opt.method||'GET',headers:{'X-Requested-With':'spenpy-admin'}};
-  if(key) init.headers['X-Admin-Key']=key;
-  if(opt.body) init.body=opt.body;
-  let r;
-  try{ r=await fetch('api.php?action='+action+(opt.method==='POST'?'':'&t='+Date.now()),init); }
-  catch(e){ throw new Error('Cannot reach api.php. Is the site online?'); }
-  let j; const txt=await r.text();
-  try{ j=JSON.parse(txt); }catch(e){ throw new Error('api.php did not answer correctly. Upload api.php next to admin.html and make sure PHP is enabled.'); }
-  if(r.status===401){ const k=prompt('Passcode:'); if(k){ key=k; sessionStorage.setItem('spenpyKey',k); return api(action,opt);} throw new Error('Passcode required.'); }
-  if(!j.ok) throw new Error(j.error||'Something went wrong.');
+async function rawFetch(url,init){
+  let r; try{ r=await fetch(url,init); }catch(e){ throw new Error('Cannot reach the server. Is the site online?'); }
+  const txt=await r.text(); let j;
+  try{ j=JSON.parse(txt); }catch(e){ const er=new Error('The server did not answer correctly. Make sure api.php, mart-api.php and lib.php are uploaded and PHP is enabled.'); er.status=r.status; throw er; }
+  if(!j.ok){ const er=new Error(j.error||'Something went wrong.'); er.status=r.status; if(r.status===401||r.status===403){ showLogin(r.status===403?'This account is not an admin.':''); } throw er; }
   return j;
+}
+/* media API (api.php) */
+function api(action,opt){
+  opt=opt||{}; const init={method:opt.method||'GET',headers:{'X-Requested-With':'spenpy-admin'},credentials:'same-origin'};
+  if(opt.body) init.body=opt.body;
+  return rawFetch('api.php?action='+action+(opt.method==='POST'?'':'&t='+Date.now()),init);
+}
+/* shop API (mart-api.php), JSON */
+function mapi(action,body){
+  const init={credentials:'same-origin',headers:{'X-Requested-With':'spenpy-admin'}};
+  if(body!==undefined){ init.method='POST'; init.headers['Content-Type']='application/json'; init.body=JSON.stringify(body); }
+  return rawFetch('mart-api.php?action='+action+(body===undefined?'&t='+Date.now():''),init);
 }
 
 /* ===================== image processing (in the browser) ===================== */
@@ -279,28 +353,27 @@ function folderFiles(folder,skip){
 }
 function folderGrid(fo){
   const g=document.createElement('div'); g.className='grid';
-  folderFiles(fo.folder,fo.skip).forEach(p=>g.appendChild(tile({p:p,l:'Photo '+(numKey(p)<1e9?numKey(p):p.split('/').pop()),u:fo.u,max:2200})));
+  const paths=new Set(folderFiles(fo.folder,fo.skip));
+  for(let n=1;n<=(fo.expect||0);n++) paths.add(fo.folder+'/'+n+'.'+fo.ext);
+  [...paths].sort((a,b)=>numKey(a)-numKey(b)||a.localeCompare(b)).forEach(p=>g.appendChild(tile({p:p,l:'Photo '+(numKey(p)<1e9?numKey(p):p.split('/').pop()),u:fo.u,max:2200})));
   g.appendChild(addTile(fo)); return g;
 }
 
-/* ===================== views ===================== */
+/* ===================== media views ===================== */
 function secBox(s){ const b=document.createElement('section'); b.className='sec'; b.innerHTML='<div class="sec-h"><div><h2>'+esc(s.t)+'</h2>'+(s.d?'<p>'+esc(s.d)+'</p>':'')+'</div></div>'; return b; }
-function render(){
-  const cat=CATALOG.find(c=>c.id===tab)||CATALOG[0]; tab=cat.id;
-  $('#title').textContent=cat.title; $('#sub').textContent=cat.sub; $('#openPage').href=cat.page;
-  $('#nav').innerHTML=''; CATALOG.forEach(c=>{ const b=document.createElement('button'); b.className='nav-btn'+(c.id===tab?' on':''); b.innerHTML='<span class="i">'+c.icon+'</span>'+esc(c.title); b.onclick=()=>{ location.hash=c.id; tab=c.id; render(); window.scrollTo(0,0); }; $('#nav').appendChild(b); });
-  view.innerHTML='';
+const openFolds=new Set();
+function renderMedia(cat){
+  $('#title').textContent=cat.title; $('#sub').textContent=cat.sub; $('#openPage').href=cat.page; $('#openPage').hidden=false;
   if(cat.all){ renderAll(); return; }
   cat.sections.forEach(s=>{
     const box=secBox(s);
     if(s.slots){ const g=document.createElement('div'); g.className='grid'; s.slots.forEach(o=>{ if(!o.k) o.k=kindOf(o.p); g.appendChild(tile(o)); }); box.appendChild(g); }
     else if(s.folder){ box.appendChild(folderGrid(s)); }
     else if(s.folders){ s.folders.forEach(fo=>{ const d=document.createElement('details'); d.className='fold'; const n=folderFiles(fo.folder).length; d.innerHTML='<summary>'+esc(fo.name)+' <small>'+n+' photo'+(n===1?'':'s')+'</small></summary><div class="in"></div>'; $('.in',d).appendChild(folderGrid(fo)); if(openFolds.has(fo.folder)) d.open=true; d.addEventListener('toggle',()=>{ d.open?openFolds.add(fo.folder):openFolds.delete(fo.folder); }); box.appendChild(d); }); }
-    else if(s.go!==undefined){ if(s.go){ const b=document.createElement('button'); b.className='btn gh'; b.textContent='Open '+CATALOG.find(c=>c.id===s.go).title+' →'; b.onclick=()=>{ tab=s.go; location.hash=tab; render(); window.scrollTo(0,0); }; box.appendChild(b); } }
+    else if(s.go!==undefined){ if(s.go){ const b=document.createElement('button'); b.className='btn gh'; b.textContent='Open '+CATALOG.find(c=>c.id===s.go).title+' →'; b.onclick=()=>goto(s.go); box.appendChild(b); } }
     view.appendChild(box);
   });
 }
-const openFolds=new Set();
 function renderAll(){
   const byDir={}; files.forEach((f,p)=>{ const d=p.slice(0,p.lastIndexOf('/')); (byDir[d]=byDir[d]||[]).push(p); });
   const dirs=Object.keys(byDir).sort();
@@ -309,19 +382,135 @@ function renderAll(){
   if(removed.length){ const box=secBox({t:'Deleted originals',d:'These original files were removed. Restore any you want back.'}); const g=document.createElement('div'); g.className='grid'; removed.forEach(p=>{ const el=document.createElement('div'); el.className='tile'; el.innerHTML='<div class="meta"><b>'+esc(p.split('/').pop())+'</b><code>'+esc(p)+'</code></div><div class="acts"><button class="up">↺ Restore</button></div>'; $('.up',el).onclick=async()=>{ try{ await api('restore',{method:'POST',body:fd1(p)}); toast('Restored ✓'); await refresh(); }catch(e){toast(e.message,true);} }; g.appendChild(el); }); box.appendChild(g); view.appendChild(box); }
 }
 
+/* ===================== shop views ===================== */
+const money=n=>'GH₵ '+Number(n).toLocaleString('en-GH',{minimumFractionDigits:2,maximumFractionDigits:2});
+const STATUS={pending:'Pending',confirmed:'Confirmed',shipped:'On the way',delivered:'Delivered',cancelled:'Cancelled'};
+let shop={products:[],orders:[],customers:[],stats:null,ofilter:'',psearch:''};
+function dialog(html){ const ov=document.createElement('div'); ov.className='ov'; ov.innerHTML='<div class="dlg">'+html+'</div>'; document.body.appendChild(ov); const close=()=>ov.remove(); ov.addEventListener('mousedown',e=>{ if(e.target===ov) close(); }); return {ov,close,q:s=>$(s,ov)}; }
+async function renderShop(tabId){
+  const t=SHOPTABS.find(x=>x.id===tabId); $('#title').textContent=t.title; $('#sub').textContent=t.sub; $('#openPage').href='mart.html'; $('#openPage').textContent='View shop ↗'; $('#openPage').hidden=false;
+  view.innerHTML='<div class="sec">Loading…</div>';
+  try{
+    if(tabId==='shop-overview') await shopOverview();
+    else if(tabId==='shop-products') await shopProducts();
+    else if(tabId==='shop-orders') await shopOrders();
+    else await shopCustomers();
+  }catch(e){ view.innerHTML='<div class="sec"><div class="status bad"><div><b>Could not load</b>'+esc(e.message)+'</div></div></div>'; }
+}
+async function shopOverview(){
+  const st=(await mapi('admin_stats')); shop.stats=st; refreshBadge();
+  view.innerHTML='<div class="stats"><div class="stat'+(st.pending?' hot':'')+'"><b>'+st.pending+'</b><span>Pending orders</span></div><div class="stat"><b>'+st.orders+'</b><span>Total orders</span></div><div class="stat"><b>'+money(st.revenue)+'</b><span>Sales (excl. cancelled)</span></div><div class="stat"><b>'+st.products+'</b><span>Products</span></div><div class="stat"><b>'+st.customers+'</b><span>Registered users</span></div></div>'+
+   '<div class="sec"><div class="sec-h"><div><h2>Quick actions</h2><p>Jump straight to what you need.</p></div></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn pri" id="qa1">＋ Add a product</button><button class="btn gh" id="qa2">Process pending orders</button><a class="btn gh" href="mart.html" target="_blank" rel="noopener">Open the shop ↗</a></div></div>';
+  $('#qa1').onclick=()=>{ goto('shop-products'); setTimeout(()=>productDialog(),250); };
+  $('#qa2').onclick=()=>{ shop.ofilter='pending'; goto('shop-orders'); };
+}
+function refreshBadge(){ const b=$('#ordBadge'); if(b&&shop.stats){ b.textContent=shop.stats.pending||''; b.style.display=shop.stats.pending?'':'none'; } }
+async function shopProducts(){
+  shop.products=(await mapi('admin_products')).products;
+  const box=document.createElement('div'); view.innerHTML='';
+  box.innerHTML='<div class="bar2"><input class="inp" id="ps" placeholder="Search products…" value="'+esc(shop.psearch)+'"><button class="btn pri" id="addP">＋ Add product</button></div><div class="grid" id="pgrid"></div>';
+  view.appendChild(box);
+  const draw=()=>{
+    const q=shop.psearch.toLowerCase(), g=$('#pgrid'); g.innerHTML='';
+    const list=shop.products.filter(p=>!q||(p.name+' '+p.category).toLowerCase().includes(q));
+    if(!list.length){ g.innerHTML='<div class="sec" style="grid-column:1/-1;text-align:center;color:var(--muted)">'+(shop.products.length?'No matching products.':'No products yet. Click “Add product” to create your first one.')+'</div>'; return; }
+    list.forEach(p=>{
+      const el=document.createElement('div'); el.className='tile pcard'+(p.active?'':' off');
+      el.innerHTML='<div class="thumb">'+(p.image?'<img src="'+esc(p.image)+'?v='+p.v+'" alt="">':'<div class="empty"><b>🛍️</b>No photo</div>')+(p.active?(p.stock<1?'<span class="badge r">Sold out</span>':'<span class="badge g">Live</span>'):'<span class="badge e">Hidden</span>')+'</div>'+
+       '<div class="meta"><b>'+esc(p.name)+'</b><span class="price">'+money(p.price)+'</span><small>'+esc(p.category||'No category')+' · '+p.stock+' in stock</small></div>'+
+       '<div class="acts"><button class="up">Edit</button><button class="tg">'+(p.active?'Hide':'Show')+'</button><button class="dl sq" aria-label="Delete">🗑</button></div>';
+      $('.up',el).onclick=()=>productDialog(p);
+      $('.tg',el).onclick=async()=>{ try{ await mapi('product_save',{id:p.id,name:p.name,category:p.category,description:p.description,price:p.price,stock:p.stock,active:p.active?0:1}); toast(p.active?'Hidden from shop':'Now visible in shop'); await renderShop('shop-products'); }catch(e){ toast(e.message,true); } };
+      $('.dl',el).onclick=async()=>{ if(!confirm('Delete “'+p.name+'” permanently?\nPast orders keep their record.')) return; try{ await mapi('product_delete',{id:p.id}); if(p.image){ try{ await api('delete',{method:'POST',body:fd1(p.image)}); }catch(e){} } toast('Deleted'); await renderShop('shop-products'); }catch(e){ toast(e.message,true); } };
+      g.appendChild(el);
+    });
+  };
+  $('#ps').oninput=e=>{ shop.psearch=e.target.value; draw(); };
+  $('#addP').onclick=()=>productDialog();
+  draw();
+}
+function productDialog(p){
+  const edit=!!p; p=p||{name:'',category:'',description:'',price:'',stock:'',active:1,image:null};
+  const cats=[...new Set(shop.products.map(x=>x.category).filter(Boolean))];
+  const d=dialog('<h2>'+(edit?'Edit product':'Add a product')+'</h2><form id="pf" novalidate>'+
+   '<label class="f">Product name</label><input class="inp" id="pName" value="'+esc(p.name)+'">'+
+   '<div class="row2"><div><label class="f">Price (GH₵)</label><input class="inp" id="pPrice" type="number" min="0" step="0.01" value="'+esc(p.price)+'"></div><div><label class="f">Stock (how many available)</label><input class="inp" id="pStock" type="number" min="0" step="1" value="'+esc(p.stock)+'"></div></div>'+
+   '<label class="f">Category</label><input class="inp" id="pCat" list="cats" value="'+esc(p.category)+'" placeholder="e.g. Groceries"><datalist id="cats">'+cats.map(c=>'<option value="'+esc(c)+'">').join('')+'</datalist>'+
+   '<label class="f">Description</label><textarea class="inp" id="pDesc">'+esc(p.description)+'</textarea>'+
+   '<label class="f">Photo</label><div class="imgpick"><div class="pv" id="pPv">'+(p.image?'<img src="'+esc(p.image)+'?v='+p.v+'" alt="">':'No photo')+'</div><div><input type="file" id="pFile" accept="image/*"><div style="font-size:12px;color:var(--muted);margin-top:6px">Square photos look best. Resized automatically.</div></div></div>'+
+   '<label class="tog"><input type="checkbox" id="pAct" '+(p.active?'checked':'')+'> Visible in the shop</label>'+
+   '<div class="msg bad" id="pErr"></div><div style="display:flex;gap:10px;margin-top:18px;justify-content:flex-end"><button type="button" class="btn gh" id="pCancel">Cancel</button><button class="btn pri" id="pSave" type="submit">'+(edit?'Save changes':'Add product')+'</button></div></form>');
+  d.q('#pCancel').onclick=d.close;
+  d.q('#pFile').onchange=e=>{ const f=e.target.files[0]; if(f){ d.q('#pPv').innerHTML='<img src="'+URL.createObjectURL(f)+'" alt="">'; } };
+  d.q('#pf').onsubmit=async e=>{
+    e.preventDefault(); const err=d.q('#pErr'); err.textContent=''; const btn=d.q('#pSave'); btn.disabled=true; btn.textContent='Saving…';
+    const data={name:d.q('#pName').value,category:d.q('#pCat').value,description:d.q('#pDesc').value,price:parseFloat(d.q('#pPrice').value||'0'),stock:parseInt(d.q('#pStock').value||'0',10),active:d.q('#pAct').checked?1:0};
+    if(!data.name.trim()){ err.textContent='Please enter a product name.'; btn.disabled=false; btn.textContent=edit?'Save changes':'Add product'; return; }
+    try{
+      if(edit) data.id=p.id;
+      let saved=(await mapi('product_save',data)).product;
+      const f=d.q('#pFile').files[0];
+      if(f){ const path='images/products/'+saved.id+'.jpg'; await uploadTo(path,f,1400); saved=(await mapi('product_save',Object.assign({},data,{id:saved.id,image:path}))).product; }
+      toast(edit?'Product saved ✓':'Product added ✓'); d.close(); await renderShop('shop-products');
+    }catch(ex){ err.textContent=ex.message; btn.disabled=false; btn.textContent=edit?'Save changes':'Add product'; }
+  };
+  d.q('#pName').focus();
+}
+async function shopOrders(){
+  const j=await mapi('admin_orders'+(shop.ofilter?'&status='+shop.ofilter:'')); shop.orders=j.orders;
+  try{ shop.stats=await mapi('admin_stats'); refreshBadge(); }catch(e){}
+  view.innerHTML='<div class="bar2"><div class="chips" id="ochips"></div></div><div id="olist"></div>';
+  const chips=[['','All'],['pending','Pending'],['confirmed','Confirmed'],['shipped','On the way'],['delivered','Delivered'],['cancelled','Cancelled']];
+  $('#ochips').innerHTML=chips.map(c=>'<button class="chip'+(shop.ofilter===c[0]?' on':'')+'" data-s="'+c[0]+'">'+c[1]+'</button>').join('');
+  $('#ochips').onclick=e=>{ const b=e.target.closest('.chip'); if(!b) return; shop.ofilter=b.dataset.s; renderShop('shop-orders'); };
+  const L=$('#olist');
+  if(!shop.orders.length){ L.innerHTML='<div class="sec" style="text-align:center;color:var(--muted)">No orders'+(shop.ofilter?' with this status':' yet')+'.</div>'; return; }
+  shop.orders.forEach(o=>{
+    const el=document.createElement('div'); el.className='ocard';
+    const ph=(o.phone||'').replace(/[^0-9+]/g,''); const wa=ph.replace(/^\+/,'').replace(/^0/,'233');
+    el.innerHTML='<div class="ohead"><div><h3>Order #'+o.id+' · '+money(o.total)+'</h3><small style="color:var(--muted)">'+esc(o.created_at)+' · '+(o.payment==='mobile_money'?'Mobile Money':'Pay on delivery')+'</small></div>'+
+     '<select class="sel s-'+o.status+'" aria-label="Order status">'+Object.keys(STATUS).map(k=>'<option value="'+k+'"'+(k===o.status?' selected':'')+'>'+STATUS[k]+'</option>').join('')+'</select></div>'+
+     '<div class="ogrid"><div><small>Customer</small><b>'+esc(o.name)+'</b><br><a href="tel:'+esc(ph)+'" style="color:var(--navy)">'+esc(o.phone)+'</a> · <a href="https://wa.me/'+esc(wa)+'" target="_blank" rel="noopener" style="color:var(--ok);font-weight:800">WhatsApp</a><br>'+esc(o.email||'')+'<br><br><small>Deliver to</small>'+esc(o.address)+(o.city?', '+esc(o.city):'')+(o.note?'<br><br><small>Note</small>'+esc(o.note):'')+'</div>'+
+     '<div><small>Items</small><table class="items">'+o.items.map(i=>'<tr><td>'+i.qty+' × '+esc(i.name)+'</td><td>'+money(i.price*i.qty)+'</td></tr>').join('')+'<tr><td><b>Total</b></td><td><b>'+money(o.total)+'</b></td></tr></table></div></div>';
+    const sel=$('.sel',el);
+    sel.onchange=async()=>{ const v=sel.value; if(v==='cancelled'&&!confirm('Cancel this order? Stock will be returned to the shop.')){ sel.value=o.status; return; } try{ await mapi('order_status',{id:o.id,status:v}); toast('Order #'+o.id+' → '+STATUS[v]); await renderShop('shop-orders'); }catch(e){ toast(e.message,true); sel.value=o.status; } };
+    L.appendChild(el);
+  });
+}
+async function shopCustomers(){
+  const j=await mapi('admin_customers');
+  view.innerHTML='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Orders</th><th>Joined</th></tr></thead><tbody>'+(j.customers.length?j.customers.map(c=>'<tr><td><b>'+esc(c.name)+'</b>'+(c.role==='admin'?' <span class="badge" style="position:static;background:var(--orange)">Admin</span>':'')+'</td><td>'+esc(c.email)+'</td><td>'+esc(c.phone)+'</td><td>'+esc(c.city)+'</td><td>'+c.orders+'</td><td>'+esc(String(c.created_at).slice(0,10))+'</td></tr>').join(''):'<tr><td colspan="6" style="text-align:center;color:var(--muted)">No customers yet.</td></tr>')+'</tbody></table></div>';
+}
+
+/* ===================== routing / render ===================== */
+function goto(id){ tab=id; location.hash=id; render(); window.scrollTo(0,0); }
+function render(){
+  const isShop=SHOPTABS.some(t=>t.id===tab), cat=CATALOG.find(c=>c.id===tab);
+  if(!isShop&&!cat){ tab='shop-overview'; }
+  const shopNow=SHOPTABS.some(t=>t.id===tab);
+  const nav=$('#nav'); nav.innerHTML='';
+  const mk=(id,icon,title,extra)=>{ const b=document.createElement('button'); b.className='nav-btn'+(id===tab?' on':''); b.innerHTML='<span class="i">'+icon+'</span>'+esc(title)+(extra||''); b.onclick=()=>goto(id); nav.appendChild(b); };
+  nav.insertAdjacentHTML('beforeend','<div class="nav-h">Shop</div>');
+  SHOPTABS.forEach(t=>mk(t.id,t.icon,t.title,t.id==='shop-orders'?'<em id="ordBadge" style="'+(shop.stats&&shop.stats.pending?'':'display:none')+'">'+(shop.stats?shop.stats.pending:'')+'</em>':''));
+  nav.insertAdjacentHTML('beforeend','<div class="nav-h">Website images</div>');
+  CATALOG.forEach(c=>mk(c.id,c.icon,c.title));
+  $('#openPage').textContent='View page ↗'; view.innerHTML='';
+  if(shopNow){ renderShop(tab); return; }
+  renderMedia(CATALOG.find(c=>c.id===tab));
+}
+
 /* ===================== server status & refresh ===================== */
 async function check(){
   const st=$('#status');
   try{
     const p=await api('ping'); serverOk=true;
-    let msg='<b>Connected ✓</b>PHP '+esc(p.php)+' · saving is enabled.';
-    let cls='ok';
+    let msg='<b>Connected ✓</b>PHP '+esc(p.php)+' · saving is enabled.', cls='ok';
     if(!p.writable){ cls='bad'; msg='<b>The website folder is not writable</b>Ask your host (or use cPanel File Manager) to make the website folder writable (permission 755) so uploads can be saved.'; serverOk=false; }
     else if(p.imagesDir===false){ cls='warn'; msg='<b>Connected, but the images folder is read-only</b>Set the “images” and “videos” folders to permission 755 in cPanel File Manager.'; }
-    st.innerHTML='<div class="status '+cls+'"><div>'+msg+'</div></div>';
+    st.innerHTML=(SHOPTABS.some(t=>t.id===tab)?'':'<div class="status '+cls+'"><div>'+msg+'</div></div>');
   }catch(e){
-    serverOk=false;
-    st.innerHTML='<div class="status bad"><div><b>Can’t save changes yet</b>'+esc(e.message)+'<br>Make sure <code>api.php</code> is uploaded in the same folder as this page and that PHP is enabled for your hosting.</div></div>';
+    serverOk=false; if(e.status===401||e.status===403) return;
+    st.innerHTML='<div class="status bad"><div><b>Can’t save changes yet</b>'+esc(e.message)+'</div></div>';
   }
 }
 async function refresh(){
@@ -329,8 +518,32 @@ async function refresh(){
   const y=window.scrollY; render(); window.scrollTo(0,y);
 }
 $('#reload').onclick=async()=>{ await check(); await refresh(); toast('Refreshed'); };
-window.addEventListener('hashchange',()=>{ const t=(location.hash||'#home').slice(1); if(t!==tab){ tab=t; render(); } });
-(async function init(){ await check(); await refresh(); })();
+window.addEventListener('hashchange',()=>{ const t=(location.hash||'#shop-overview').slice(1); if(t!==tab&&me){ tab=t; render(); } });
+
+/* ===================== login ===================== */
+function showLogin(msg){ me=null; $('#login').hidden=false; $('#lErr').textContent=msg||''; $('#userbox').innerHTML=''; setTimeout(()=>$('#lEmail').focus(),50); }
+function showUser(){ $('#userbox').innerHTML='<b>'+esc(me.name)+'</b>'+esc(me.email)+'<br><button id="logoutBtn">Log out</button>'; $('#logoutBtn').onclick=async()=>{ try{ await mapi('logout',{}); }catch(e){} showLogin(); }; }
+$('#loginF').onsubmit=async e=>{
+  e.preventDefault(); const b=$('#lGo'); b.disabled=true; $('#lErr').textContent='';
+  try{
+    const j=await rawFetch('mart-api.php?action=login',{method:'POST',credentials:'same-origin',headers:{'X-Requested-With':'spenpy-admin','Content-Type':'application/json'},body:JSON.stringify({email:$('#lEmail').value,password:$('#lPass').value})});
+    if(j.user.role!=='admin'){ await mapi('logout',{}).catch(()=>{}); $('#lErr').textContent='This account is not an admin. Customers can shop at mart.html.'; }
+    else{ $('#loginF').reset(); await boot(); }
+  }catch(ex){ if(ex.status!==401&&ex.status!==403) $('#lErr').textContent=ex.message; else $('#lErr').textContent=ex.message; }
+  b.disabled=false;
+};
+async function boot(){
+  try{
+    const j=await rawFetch('mart-api.php?action=me&t='+Date.now(),{credentials:'same-origin'});
+    if(!j.user||j.user.role!=='admin'){ showLogin(j.user?'This account is not an admin.':''); return; }
+    me=j.user; $('#login').hidden=true; showUser();
+    await check(); await refresh();
+    try{ shop.stats=await mapi('admin_stats'); refreshBadge(); }catch(e){}
+  }catch(e){
+    showLogin(e.status===503?'The shop login is not set up yet. Open mart-setup.php first (see ADMIN-GUIDE.txt).':e.message);
+  }
+}
+boot();
 })();
 </script>
 </body>

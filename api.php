@@ -2,14 +2,11 @@
 /**
  * Spenpy media manager API  (used by admin.html)
  *
+ * - Only logged-in admins can use it (same login as the Mart)
  * - Only touches files inside /images and /videos
  * - Only allows jpg, png, webp, mp4, webm (content is verified, not just the name)
  * - Keeps a copy of every original in /_media_backup so "Restore original" works
- *
- * OPTIONAL SAFETY: admin.html is open to anyone who knows its address (as requested).
- * To add a passcode later, put one between the quotes below. Leave empty for no login.
  */
-const ADMIN_PASSCODE = '';
 
 const MAX_BYTES = 314572800;            // 300 MB per file
 const IMG_EXT   = ['jpg', 'jpeg', 'png', 'webp'];
@@ -26,21 +23,16 @@ $BACKUP = $ROOT . '/_media_backup';
 $TMP    = $ROOT . '/_media_tmp';
 
 function out($data, $code = 200) {
-    http_response_code($code);
-    echo json_encode($data, JSON_UNESCAPED_SLASHES);
-    exit;
-}
-function fail($msg, $code = 400) {
-    out(['ok' => false, 'error' => $msg], $code);
+    json_out($data, $code);
 }
 
-/* ---------- optional passcode ---------- */
-if (ADMIN_PASSCODE !== '') {
-    $given = isset($_SERVER['HTTP_X_ADMIN_KEY']) ? (string)$_SERVER['HTTP_X_ADMIN_KEY'] : '';
-    if (!hash_equals(ADMIN_PASSCODE, $given)) {
-        fail('Passcode required.', 401);
-    }
+/* ---------- admin login required (same login as the shop) ---------- */
+require __DIR__ . '/lib.php';
+$__c = cfg();
+if (!$__c) {
+    fail('Set up the shop login first: open mart-setup.php (see ADMIN-GUIDE.txt).', 503);
 }
+require_admin();
 
 /* ---------- basic request protection ---------- */
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
@@ -163,7 +155,6 @@ if ($action === 'ping') {
         'videosDir'   => is_dir($ROOT . '/videos') ? is_writable($ROOT . '/videos') : null,
         'uploadMax'   => $to_bytes(ini_get('upload_max_filesize')),
         'postMax'     => $to_bytes(ini_get('post_max_size')),
-        'passcode'    => ADMIN_PASSCODE !== '',
         'maxBytes'    => MAX_BYTES,
     ]);
 }

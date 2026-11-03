@@ -1,0 +1,60 @@
+SPENPY WEBSITE - ADMIN PANEL & SPENPY MART
+==========================================
+
+WHAT YOU HAVE
+  mart.html      The shop: customers register, log in, browse products, order.
+  admin.html     Your admin panel (same login as the shop, admin accounts only):
+                   Shop    -> Overview, Products, Orders, Customers
+                   Website images -> Home, PrintCraft, Treasure Tour, African Dishes,
+                                     Sourcing, All files
+  mart-api.php, api.php, lib.php, mart-setup.php   The server code behind them.
+
+ONE-TIME SETUP (about 10 minutes)
+  1. cPanel > MySQL Databases:
+       - create a database  (e.g. spenpy_shop)
+       - create a database user with a strong password
+       - add the user to the database with ALL PRIVILEGES
+     (cPanel adds a prefix, e.g. cpanelname_spenpy_shop. Use the FULL names.)
+     If you already have a WordPress database you may use it: the shop tables start
+     with "spenpy_" so they will not clash with WordPress tables.
+  2. cPanel > File Manager > your website folder (public_html):
+       - copy  config.sample.php  and name the copy  config.php
+       - edit config.php: database name, user, password, and a secret "setup_key"
+         (any long secret word only you know).
+  3. Open  https://YOUR-DOMAIN/mart-setup.php
+       - enter the setup key, your name, admin email and password
+       - it creates the tables and your admin account, then locks itself.
+  4. Open  https://YOUR-DOMAIN/admin.html  and log in with that email/password.
+     (Delete nothing: config.php and lib.php are blocked from the web by .htaccess.)
+  5. Admin > Products > "Add product" to stock the shop. Done.
+
+DAILY USE
+  Products : add / edit / hide / delete, with a photo. "Stock" counts down automatically
+             when customers order, and goes back up if an order is cancelled.
+  Orders   : change the status (Pending > Confirmed > On the way > Delivered, or Cancelled).
+             Customers see the status in their account. Tap WhatsApp to message the customer.
+  Customers: everyone who registered.
+  Website images: replace / add / delete any picture or video. Originals are kept so
+             "Restore" always works. Add photos with "Add photos" boxes. Empty gallery
+             slots are simply hidden on the website until you fill them.
+
+HOW CUSTOMERS PAY
+  Checkout offers "Pay on delivery" or "Mobile Money". No online card payment is built in:
+  you confirm each order with the customer by phone/WhatsApp (their number is on the order).
+
+SECURITY NOTES
+  - Admin and the media manager now REQUIRE the admin login (no more open admin page).
+  - Passwords are stored hashed (never readable). Login attempts are rate-limited.
+  - Only admin accounts can post products, process orders or change images.
+  - If you forget the admin password: open mart-setup.php again after deleting the file
+    setup.lock (File Manager), enter the same admin email and a new password.
+  - Use HTTPS on your domain (free SSL in cPanel) so passwords are encrypted in transit.
+
+DEPLOYING FROM GIT
+  .cpanel.yml copies the pages and PHP files, but only ADDS images/videos that are not on the
+  server yet, so pictures changed in the admin are never overwritten.
+  config.php is NOT in Git (it holds your database password). Create it on the server only.
+
+SERVER REQUIREMENTS
+  PHP 7.4 or newer with PDO MySQL (standard on cPanel), a MySQL/MariaDB database, and write
+  permission (755) on the "images" and "videos" folders.

@@ -1505,6 +1505,7 @@ function addGalleryImage(src){
   const img=document.createElement("img");
   img.src=src; img.alt="West Africa Treasure Tour";
   img.loading="lazy";
+  img.onerror=()=>a.remove();   // missing photo: hide the tile instead of showing a broken image
   a.appendChild(img);
   a.addEventListener("click",e=>{
     e.preventDefault();

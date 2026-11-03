@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spenpy Mart — Everyday essentials, delivered</title>
+<meta name="description" content="Spenpy Mart: browse quality everyday products and order online. Create a free account, add to cart and we deliver.">
+<meta name="theme-color" content="#062f50">
+<link rel="icon" type="image/png" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Fraunces:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#083b63;--deep:#062f50;--ink:#04223a;--orange:#ff6b00;--blue:#3294d6;--soft:#eef8ff;--line:#dbe7f2;--muted:#5c7285;--ok:#13a06f;--bad:#d64545;--ease:cubic-bezier(.2,.8,.2,1);--out:cubic-bezier(.16,1,.3,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--soft);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:'Manrope',sans-serif;letter-spacing:-.025em;line-height:1.08;font-weight:800}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:14px;font:800 14.5px 'Manrope';transition:transform .3s var(--ease),box-shadow .3s,background .25s,color .25s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-or{background:var(--orange);color:#fff;box-shadow:0 10px 24px rgba(255,107,0,.3)}.btn-or:hover{background:#e65f00;transform:translateY(-2px)}
+.btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--orange)}
+.btn-gh{background:#fff;border:1px solid var(--line);color:var(--navy)}.btn-gh:hover{border-color:var(--navy)}
+.btn[disabled]{opacity:.55;pointer-events:none}
+.btn.block{width:100%}
+/* header */
+.header{position:sticky;top:0;z-index:40;background:rgba(238,248,255,.86);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid rgba(8,59,99,.08)}
+.bar{height:66px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font:800 17px 'Manrope';color:var(--navy)}.brand img{width:32px}.brand b{color:var(--orange)}
+.hnav{margin-left:auto;display:flex;align-items:center;gap:6px}
+.hlink{padding:9px 13px;border-radius:999px;font:700 14px 'Manrope';color:var(--navy);transition:.2s}.hlink:hover{background:#fff;color:var(--orange)}
+.icon-btn{position:relative;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font:800 13.5px 'Manrope';color:var(--navy);transition:.25s var(--ease)}
+.icon-btn:hover{border-color:var(--navy);transform:translateY(-1px)}
+.icon-btn svg{width:19px;height:19px}
+.badge{position:absolute;top:-6px;right:-4px;min-width:21px;height:21px;padding:0 5px;border-radius:99px;background:var(--orange);color:#fff;font:800 11.5px/21px 'Manrope';text-align:center}
+.bump{animation:bump .45s var(--ease)}@keyframes bump{40%{transform:scale(1.35)}}
+/* hero */
+.hero{position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(160deg,var(--navy),var(--ink));color:#fff;padding:clamp(40px,7vw,84px) 0 clamp(54px,8vw,96px)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(55% 70% at 90% 0%,rgba(255,107,0,.32),transparent 65%),radial-gradient(50% 70% at 0% 100%,rgba(50,148,214,.4),transparent 65%)}
+.blob{position:absolute;border-radius:50%;filter:blur(40px);z-index:-1;animation:float 12s ease-in-out infinite}
+.blob.a{width:260px;height:260px;background:rgba(255,107,0,.35);right:6%;top:-40px}.blob.b{width:300px;height:300px;background:rgba(50,148,214,.35);left:-60px;bottom:-90px;animation-delay:-4s}
+@keyframes float{50%{transform:translate(24px,-30px) scale(1.08)}}
+.hero-in{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 11px;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);font:800 11.5px 'Manrope';letter-spacing:.14em;text-transform:uppercase}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:ping 2s infinite}@keyframes ping{70%{box-shadow:0 0 0 10px rgba(255,107,0,0)}}
+.hero h1{font-size:clamp(2.3rem,5.6vw,4.4rem);margin:18px 0 14px}.hero h1 em{font-family:'Fraunces',serif;font-style:italic;color:var(--orange);font-weight:600}
+.hero p{max-width:50ch;color:rgba(255,255,255,.78);font-size:clamp(15px,1.4vw,17.5px)}
+.search{display:flex;gap:8px;margin-top:26px;max-width:540px;background:#fff;border-radius:18px;padding:6px 6px 6px 16px;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.search input{flex:1;min-width:0;border:0;outline:0;background:none;color:var(--ink);font-size:15.5px}
+.hero-art{position:relative;height:260px}
+.chipcard{position:absolute;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px);border-radius:20px;padding:16px 18px;display:flex;align-items:center;gap:12px;font:800 14px 'Manrope';animation:bob 6s ease-in-out infinite}
+.chipcard .e{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--orange);font-size:22px}
+.chipcard small{display:block;font:500 12px 'DM Sans';opacity:.75}
+.chipcard:nth-child(1){left:4%;top:6%}.chipcard:nth-child(2){right:0;top:38%;animation-delay:-2s}.chipcard:nth-child(3){left:14%;bottom:0;animation-delay:-4s}
+@keyframes bob{50%{transform:translateY(-12px)}}
+/* shop */
+.shop{padding:34px 0 70px}
+.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:22px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px;flex:1;min-width:0;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:9px 16px;border-radius:99px;background:#fff;border:1px solid var(--line);font:700 13.5px 'Manrope';color:var(--navy);transition:.25s var(--ease)}
+.chip:hover{border-color:var(--navy)}.chip[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.sort{padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:600;font-size:14px;color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.card{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:transform .45s var(--ease),box-shadow .45s;cursor:pointer;opacity:0;transform:translateY(24px)}
+.card.in{opacity:1;transform:none;transition:opacity .7s var(--out),transform .7s var(--out),box-shadow .45s}
+.card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(8,47,80,.16)}
+.pimg{position:relative;aspect-ratio:1/1;overflow:hidden;background:linear-gradient(135deg,var(--c1,#3294d6),var(--c2,#083b63));display:grid;place-items:center}
+.pimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--out)}
+.card:hover .pimg img{transform:scale(1.08)}
+.pimg svg{width:34%;color:rgba(255,255,255,.55)}
+.tag{position:absolute;left:12px;top:12px;padding:5px 11px;border-radius:99px;background:rgba(255,255,255,.92);font:800 11px 'Manrope';letter-spacing:.04em;color:var(--navy)}
+.low{position:absolute;right:12px;top:12px;padding:5px 10px;border-radius:99px;background:var(--orange);color:#fff;font:800 11px 'Manrope'}
+.low.out{background:#5c7285}
+.pbody{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.pbody h3{font-size:1.02rem;line-height:1.25}
+.price{font:800 1.2rem 'Manrope';color:var(--navy)}
+.prow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:8px}
+.add{padding:9px 14px;font-size:13px;border-radius:12px}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.stepper button{width:34px;height:36px;font-weight:800;font-size:17px;color:var(--navy)}.stepper button:hover{background:var(--soft)}
+.stepper span{min-width:30px;text-align:center;font:800 14px 'Manrope'}
+.state{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)}
+.state .big{font-size:56px}.state h3{color:var(--navy);margin:10px 0 6px;font-size:1.4rem}
+.skel{height:330px;border-radius:22px;background:linear-gradient(100deg,#e6eef6 30%,#f4f8fc 50%,#e6eef6 70%) 0 0/300% 100%;animation:sk 1.3s linear infinite}@keyframes sk{to{background-position:-300% 0}}
+/* modal & drawer */
+.scrim{position:fixed;inset:0;background:rgba(4,20,36,.6);backdrop-filter:blur(4px);z-index:60;opacity:0;pointer-events:none;transition:opacity .35s}
+.scrim.on{opacity:1;pointer-events:auto}
+.modal{position:fixed;z-index:61;left:50%;top:50%;width:min(520px,calc(100vw - 24px));max-height:calc(100vh - 24px);overflow:auto;background:#fff;border-radius:26px;padding:26px;box-shadow:0 40px 90px rgba(0,0,0,.4);transform:translate(-50%,-46%) scale(.96);opacity:0;pointer-events:none;transition:.4s var(--out)}
+.modal.on{transform:translate(-50%,-50%);opacity:1;pointer-events:auto}
+.modal.wide{width:min(860px,calc(100vw - 24px))}
+.mclose{position:absolute;right:14px;top:14px;width:38px;height:38px;border-radius:50%;background:var(--soft);font-size:18px;color:var(--navy);z-index:2}.mclose:hover{background:var(--orange);color:#fff}
+.modal h2{font-size:1.55rem;color:var(--navy);margin-bottom:4px;padding-right:40px}
+.modal .sub{color:var(--muted);font-size:14px;margin-bottom:16px}
+.tabs{display:flex;gap:6px;background:var(--soft);padding:5px;border-radius:14px;margin:12px 0 16px}
+.tabs button{flex:1;padding:10px;border-radius:10px;font:800 13.5px 'Manrope';color:var(--muted)}.tabs button.on{background:#fff;color:var(--navy);box-shadow:0 4px 12px rgba(8,47,80,.1)}
+label{display:block;font:700 13px 'Manrope';color:var(--navy);margin:12px 0 5px}
+.in-t{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #cfdbe7;background:#fff;outline:0;transition:.2s}.in-t:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(50,148,214,.18)}
+textarea.in-t{resize:vertical;min-height:70px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.err{background:#fdecec;border:1px solid #f3b9b9;color:#7b1d1d;border-radius:12px;padding:10px 14px;font-size:14px;margin-top:12px}.err:empty{display:none}
+.okbox{background:#e8f7f0;border:1px solid #b6e3cf;color:#0b5c40;border-radius:12px;padding:10px 14px;font-size:14px;margin-top:12px}
+.drawer{position:fixed;z-index:61;top:0;right:0;height:100%;width:min(430px,100vw);background:#fff;box-shadow:-30px 0 70px rgba(0,0,0,.3);display:flex;flex-direction:column;transform:translateX(105%);transition:transform .5s var(--out)}
+.drawer.on{transform:none}
+.dh{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}.dh h2{font-size:1.3rem;color:var(--navy)}
+.dbody{flex:1;overflow:auto;padding:14px 22px}
+.df{padding:18px 22px;border-top:1px solid var(--line);background:#f8fbfe}
+.line{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #edf2f7}
+.line .th{width:64px;height:64px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,var(--c1,#3294d6),var(--c2,#083b63))}.line .th img{width:100%;height:100%;object-fit:cover}
+.line b{font:800 14px 'Manrope';display:block;line-height:1.25}.line small{color:var(--muted)}
+.rm{font-size:12px;color:var(--bad);font-weight:700;margin-top:4px}
+.tot{display:flex;justify-content:space-between;font:800 1.15rem 'Manrope';margin-bottom:12px;color:var(--navy)}
+.pm{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.pm label{display:flex;align-items:center;gap:10px;margin:0;padding:12px;border:1px solid var(--line);border-radius:14px;cursor:pointer;font-weight:700}
+.pm input{accent-color:var(--orange)}
+.pm label:has(input:checked){border-color:var(--orange);background:#fff6ee}
+.sum{background:var(--soft);border-radius:16px;padding:14px;margin-top:14px;font-size:14px}
+.sum div{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.pd{display:grid;grid-template-columns:1fr 1fr;gap:26px}.pd .pimg{border-radius:20px;aspect-ratio:1/1}
+.pd h2{padding-right:0}
+.ord{border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:12px}
+.ord-h{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.st{display:inline-block;padding:4px 11px;border-radius:99px;font:800 11.5px 'Manrope';background:#e8eef5;color:var(--navy)}
+.st.pending{background:#fff2d6;color:#7a5200}.st.confirmed{background:#e0f0ff;color:#0b4f84}.st.shipped{background:#e9e4ff;color:#4b2fa0}.st.delivered{background:#dff5ea;color:#0b5c40}.st.cancelled{background:#fde4e4;color:#8a1f1f}
+.ord ul{list-style:none;margin:10px 0;font-size:14px;color:var(--muted)}.ord li{display:flex;justify-content:space-between;gap:10px;padding:2px 0}
+.success{text-align:center;padding:10px 0}.success .tick{width:78px;height:78px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;margin:0 auto 14px;font-size:38px;animation:pop .6s var(--out)}
+@keyframes pop{from{transform:scale(.3);opacity:0}}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--deep);color:#fff;padding:12px 18px;border-radius:14px;font-weight:700;font-size:14px;z-index:90;transition:.35s var(--out);box-shadow:0 18px 40px rgba(0,0,0,.3);max-width:92vw}.toast.on{opacity:1;transform:translateX(-50%)}
+footer{background:var(--deep);color:rgba(255,255,255,.75);padding:38px 0 30px;font-size:14px}
+.fgrid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}footer a:hover{color:var(--orange)}footer b{color:#fff;font-family:'Manrope'}
+.wa{position:fixed;right:18px;bottom:18px;z-index:50;width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 12px 28px rgba(0,0,0,.28)}.wa svg{width:28px;height:28px;fill:#fff}
+@media(max-width:860px){.hero-in{grid-template-columns:1fr}.hero-art{display:none}.pd{grid-template-columns:1fr}.hlink.hide-m{display:none}}
+@media(max-width:560px){.grid{grid-template-columns:repeat(2,1fr);gap:12px}.pbody{padding:10px 12px 12px}.pbody h3{font-size:.92rem}.price{font-size:1.05rem}.two{grid-template-columns:1fr}.pm{grid-template-columns:1fr}.add{padding:8px 10px}.icon-btn .lbl{display:none}.modal{padding:20px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}.card{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l1 12H5L6 8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+<symbol id="s-whatsapp" viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 4 3.5.6.2 1 .4 1.3.5.6.2 1.1.2 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.1-.4-.2z"/><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2z"/></symbol>
+</svg>
+
+<header class="header">
+  <div class="wrap bar">
+    <a href="index.html" class="brand"><img src="images/logo.png" alt=""><span>Spenpy <b>Mart</b></span></a>
+    <nav class="hnav">
+      <a class="hlink hide-m" href="index.html">Home</a>
+      <a class="hlink hide-m" href="#shop">Shop</a>
+      <a class="hlink" id="adminLink" href="admin.html" hidden>Admin</a>
+      <button class="icon-btn" id="accBtn"><svg><use href="#i-user"/></svg><span class="lbl" id="accLbl">Login</span></button>
+      <button class="icon-btn" id="cartBtn" aria-label="Open cart"><svg><use href="#i-bag"/></svg><span class="lbl">Cart</span><span class="badge" id="cartCount">0</span></button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="blob a"></div><div class="blob b"></div>
+  <div class="wrap hero-in">
+    <div>
+      <span class="pill"><i></i>Spenpy Mart · Accra</span>
+      <h1>Everyday essentials,<br><em>delivered</em> to you.</h1>
+      <p>Browse our products, add what you like to your cart and place your order in minutes. Create a free account to track every order.</p>
+      <div class="search"><input id="q" type="search" placeholder="Search products…" aria-label="Search products"><button class="btn btn-or" id="qGo">Search</button></div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="chipcard"><span class="e">🛍️</span><div>Quality products<small>Hand-picked for you</small></div></div>
+      <div class="chipcard"><span class="e">🚚</span><div>Delivery<small>Straight to your door</small></div></div>
+      <div class="chipcard"><span class="e">💬</span><div>Easy support<small>Chat with us on WhatsApp</small></div></div>
+    </div>
+  </div>
+</section>
+
+<main class="shop" id="shop">
+  <div class="wrap">
+    <div class="toolbar">
+      <div class="chips" id="chips"></div>
+      <select class="sort" id="sort" aria-label="Sort products"><option value="new">Newest</option><option value="lo">Price: low to high</option><option value="hi">Price: high to low</option><option value="az">Name: A–Z</option></select>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap fgrid">
+    <div><b>Spenpy Mart</b><br>A Spenpy Enterprises business · Accra, Ghana<br>© <span id="yr"></span> Spenpy Enterprises</div>
+    <div><b>Contact</b><br><a href="tel:+233500805719">00233 500 805 719</a><br><a href="tel:+233302320452">00233 302 320 452</a><br><a href="mailto:info@spenpy.com">info@spenpy.com</a></div>
+    <div><b>Explore</b><br><a href="index.html">Spenpy Enterprises</a><br><a href="printing.html">PrintCraft</a><br><a href="travel.html">Treasure Tour</a></div>
+  </div>
+</footer>
+
+<a class="wa" id="waFloat" href="https://wa.me/233500805719" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg><use href="#s-whatsapp"/></svg></a>
+<div class="scrim" id="scrim"></div>
+
+<!-- Cart -->
+<aside class="drawer" id="cart" aria-label="Shopping cart">
+  <div class="dh"><h2>Your cart</h2><button class="mclose" style="position:static" data-close aria-label="Close">✕</button></div>
+  <div class="dbody" id="cartBody"></div>
+  <div class="df" id="cartFoot"></div>
+</aside>
+
+<!-- Auth -->
+<div class="modal" id="authM" role="dialog" aria-modal="true">
+  <button class="mclose" data-close aria-label="Close">✕</button>
+  <h2 id="authT">Welcome back</h2><p class="sub" id="authS">Log in to place and track your orders.</p>
+  <div class="tabs"><button class="on" data-t="login">Log in</button><button data-t="register">Create account</button></div>
+  <form id="authF" novalidate>
+    <div id="regOnly" hidden><label for="aName">Full name</label><input class="in-t" id="aName" autocomplete="name"><label for="aPhone">Phone number</label><input class="in-t" id="aPhone" type="tel" autocomplete="tel" placeholder="e.g. 0500805719"></div>
+    <label for="aEmail">Email</label><input class="in-t" id="aEmail" type="email" autocomplete="email">
+    <label for="aPass">Password <small id="passHint" style="font-weight:500;color:var(--muted)"></small></label><input class="in-t" id="aPass" type="password" autocomplete="current-password">
+    <div class="err" id="authE"></div>
+    <button class="btn btn-or block" style="margin-top:16px" id="authGo" type="submit">Log in</button>
+  </form>
+</div>
+
+<!-- Product -->
+<div class="modal wide" id="prodM" role="dialog" aria-modal="true"><button class="mclose" data-close aria-label="Close">✕</button><div class="pd" id="prodBody"></div></div>
+
+<!-- Checkout -->
+<div class="modal" id="coM" role="dialog" aria-modal="true"><button class="mclose" data-close aria-label="Close">✕</button><div id="coBody"></div></div>
+
+<!-- Account -->
+<div class="modal wide" id="accM" role="dialog" aria-modal="true"><button class="mclose" data-close aria-label="Close">✕</button>
+  <h2 id="accName">My account</h2><p class="sub" id="accMail"></p>
+  <div class="tabs"><button class="on" data-t="orders">My orders</button><button data-t="profile">Profile</button><button data-t="pw">Password</button></div>
+  <div id="accOrders"></div>
+  <form id="accProfile" hidden novalidate>
+    <div class="two"><div><label>Full name</label><input class="in-t" id="pfName"></div><div><label>Phone</label><input class="in-t" id="pfPhone" type="tel"></div></div>
+    <label>Delivery address</label><input class="in-t" id="pfAddr"><label>City / town</label><input class="in-t" id="pfCity">
+    <div class="err" id="pfE"></div><button class="btn btn-or" style="margin-top:16px" type="submit">Save profile</button>
+  </form>
+  <form id="accPw" hidden novalidate>
+    <label>Current password</label><input class="in-t" id="pwCur" type="password" autocomplete="current-password">
+    <label>New password <small style="font-weight:500;color:var(--muted)">(8+ characters)</small></label><input class="in-t" id="pwNew" type="password" autocomplete="new-password">
+    <div class="err" id="pwE"></div><button class="btn btn-or" style="margin-top:16px" type="submit">Change password</button>
+  </form>
+  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><span style="color:var(--muted);font-size:14px">Signed in as <b id="accWho"></b></span><button class="btn btn-gh" id="logoutBtn">Log out</button></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+var $=function(s,c){return (c||document).querySelector(s)}, $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+var S={products:[],cart:{},user:null,cat:'All',q:'',sort:'new',cur:'GH₵',wa:'233500805719',ready:true};
+try{S.cart=JSON.parse(localStorage.getItem('spenpy_cart')||'{}')||{};}catch(e){S.cart={};}
+$('#yr').textContent=new Date().getFullYear();
+var money=function(n){return S.cur+' '+Number(n).toLocaleString('en-GH',{minimumFractionDigits:2,maximumFractionDigits:2})};
+var toastT;function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('on')},2800)}
+
+function api(action,body){
+  var opt={credentials:'same-origin',headers:{'X-Requested-With':'spenpy'}};
+  if(body!==undefined){opt.method='POST';opt.headers['Content-Type']='application/json';opt.body=JSON.stringify(body);}
+  return fetch('mart-api.php?action='+action+(body===undefined?'&t='+Date.now():''),opt).then(function(r){return r.text().then(function(t){var j;try{j=JSON.parse(t)}catch(e){throw new Error('The shop is not available right now. Please try again shortly.')}
+    if(!j.ok){var er=new Error(j.error||'Something went wrong.');er.status=r.status;throw er}return j})},function(){throw new Error('You appear to be offline. Please check your connection.')});
+}
+
+/* ---------- overlays ---------- */
+var openEl=null;
+function show(el){hide();openEl=el;el.classList.add('on');$('#scrim').classList.add('on');document.body.style.overflow='hidden';}
+function hide(){if(openEl){openEl.classList.remove('on');openEl=null}$('#scrim').classList.remove('on');document.body.style.overflow='';}
+$('#scrim').onclick=hide;
+document.addEventListener('click',function(e){if(e.target.closest('[data-close]'))hide()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')hide()});
+
+/* ---------- products ---------- */
+function palette(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))%360;return ['hsl('+h+',62%,46%)','hsl('+((h+40)%360)+',65%,24%)']}
+function artStyle(p){var c=palette(p.category||p.name);return '--c1:'+c[0]+';--c2:'+c[1]}
+function imgTag(p){return p.image?'<img src="'+esc(p.image)+'?v='+p.v+'" alt="'+esc(p.name)+'" loading="lazy" onerror="this.remove()">':''}
+function qtyInCart(id){return S.cart[id]||0}
+function visible(){
+  var q=S.q.trim().toLowerCase();
+  var l=S.products.filter(function(p){return (S.cat==='All'||p.category===S.cat)&&(!q||(p.name+' '+p.category+' '+p.description).toLowerCase().indexOf(q)>-1)});
+  var s=S.sort; l.sort(function(a,b){return s==='lo'?a.price-b.price:s==='hi'?b.price-a.price:s==='az'?a.name.localeCompare(b.name):b.id-a.id});
+  return l;
+}
+function renderChips(){
+  var cats=['All'];S.products.forEach(function(p){if(p.category&&cats.indexOf(p.category)<0)cats.push(p.category)});
+  $('#chips').innerHTML=cats.length>1?cats.map(function(c){return '<button class="chip" aria-pressed="'+(c===S.cat)+'" data-c="'+esc(c)+'">'+esc(c)+'</button>'}).join(''):'';
+}
+function cardHTML(p){
+  var out=p.stock<1, low=p.stock>0&&p.stock<=5, n=qtyInCart(p.id);
+  return '<article class="card" data-id="'+p.id+'"><div class="pimg" style="'+artStyle(p)+'"><svg><use href="#i-bag"/></svg>'+imgTag(p)+
+    (p.category?'<span class="tag">'+esc(p.category)+'</span>':'')+(out?'<span class="low out">Sold out</span>':low?'<span class="low">Only '+p.stock+' left</span>':'')+'</div>'+
+    '<div class="pbody"><h3>'+esc(p.name)+'</h3><div class="price">'+money(p.price)+'</div><div class="prow">'+
+    (out?'<span style="color:var(--muted);font-size:13px;font-weight:700">Out of stock</span>':n?stepperHTML(p.id,n):'<button class="btn btn-or add" data-add="'+p.id+'">Add to cart</button>')+'</div></div></article>';
+}
+function stepperHTML(id,n){return '<div class="stepper"><button data-dec="'+id+'" aria-label="Less">−</button><span>'+n+'</span><button data-inc="'+id+'" aria-label="More">+</button></div>'}
+var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1}):null;
+function renderGrid(){
+  var l=visible(),g=$('#grid');
+  if(!S.products.length){g.innerHTML='<div class="state"><div class="big">🛒</div><h3>Our shelves are being stocked</h3><p>New products are coming soon. Check back shortly or chat with us on WhatsApp.</p></div>';return}
+  if(!l.length){g.innerHTML='<div class="state"><div class="big">🔎</div><h3>No products found</h3><p>Try a different search or category.</p></div>';return}
+  g.innerHTML=l.map(cardHTML).join('');
+  $$('.card',g).forEach(function(c,i){c.style.transitionDelay=(Math.min(i,8)*.05)+'s';io?io.observe(c):c.classList.add('in')});
+}
+function load(){
+  $('#grid').innerHTML='<div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>';
+  return api('products').then(function(j){S.products=j.products;
+    Object.keys(S.cart).forEach(function(id){if(!S.products.some(function(p){return p.id==id}))delete S.cart[id]});saveCart();
+    renderChips();renderGrid();renderCartCount()}).catch(function(e){$('#grid').innerHTML='<div class="state"><div class="big">⚠️</div><h3>Shop unavailable</h3><p>'+esc(e.message)+'</p></div>'});
+}
+$('#chips').onclick=function(e){var b=e.target.closest('.chip');if(!b)return;S.cat=b.dataset.c;renderChips();renderGrid()};
+$('#sort').onchange=function(){S.sort=this.value;renderGrid()};
+$('#q').oninput=function(){S.q=this.value;renderGrid()};
+$('#qGo').onclick=function(){S.q=$('#q').value;renderGrid();$('#shop').scrollIntoView({behavior:'smooth'})};
+$('#q').onkeydown=function(e){if(e.key==='Enter')$('#qGo').click()};
+
+/* ---------- cart ---------- */
+function saveCart(){try{localStorage.setItem('spenpy_cart',JSON.stringify(S.cart))}catch(e){}}
+function byId(id){for(var i=0;i<S.products.length;i++)if(S.products[i].id==id)return S.products[i]}
+function setQty(id,q){var p=byId(id);if(!p)return;q=Math.max(0,Math.min(q,p.stock,99));if(q<1)delete S.cart[id];else S.cart[id]=q;saveCart();renderCartCount();refreshCard(id);if($('#cart').classList.contains('on'))renderCart();}
+function refreshCard(id){var c=$('.card[data-id="'+id+'"]');if(!c)return;var p=byId(id),n=qtyInCart(id);if(c.querySelector('.prow')&&p.stock>0)c.querySelector('.prow').innerHTML=n?stepperHTML(id,n):'<button class="btn btn-or add" data-add="'+id+'">Add to cart</button>'}
+function cartLines(){return Object.keys(S.cart).map(function(id){var p=byId(id);return p?{p:p,q:S.cart[id]}:null}).filter(Boolean)}
+function cartTotal(){return cartLines().reduce(function(s,l){return s+l.p.price*l.q},0)}
+function renderCartCount(){var n=cartLines().reduce(function(s,l){return s+l.q},0),b=$('#cartCount');b.textContent=n;b.style.display=n?'':'none';b.classList.remove('bump');void b.offsetWidth;if(n)b.classList.add('bump')}
+function renderCart(){
+  var ls=cartLines(),b=$('#cartBody'),f=$('#cartFoot');
+  if(!ls.length){b.innerHTML='<div class="state" style="padding:50px 10px"><div class="big">🛍️</div><h3>Your cart is empty</h3><p>Add a few products and they will show up here.</p></div>';f.innerHTML='<button class="btn btn-navy block" data-close>Continue shopping</button>';return}
+  b.innerHTML=ls.map(function(l){return '<div class="line"><div class="th" style="'+artStyle(l.p)+'">'+imgTag(l.p)+'</div><div><b>'+esc(l.p.name)+'</b><small>'+money(l.p.price)+'</small><br>'+stepperHTML(l.p.id,l.q)+'</div><div style="text-align:right"><b>'+money(l.p.price*l.q)+'</b><button class="rm" data-rm="'+l.p.id+'">Remove</button></div></div>'}).join('');
+  f.innerHTML='<div class="tot"><span>Total</span><span>'+money(cartTotal())+'</span></div><button class="btn btn-or block" id="goCo">Checkout</button><p style="font-size:12.5px;color:var(--muted);margin-top:10px;text-align:center">Pay on delivery or Mobile Money — we confirm every order with you.</p>';
+}
+$('#cartBtn').onclick=function(){renderCart();show($('#cart'))};
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-add],[data-inc],[data-dec],[data-rm],#goCo');if(!t)return;e.stopPropagation();
+  if(t.dataset.add){setQty(t.dataset.add,1);toast('Added to cart ✓')}
+  else if(t.dataset.inc){setQty(t.dataset.inc,qtyInCart(t.dataset.inc)+1)}
+  else if(t.dataset.dec){setQty(t.dataset.dec,qtyInCart(t.dataset.dec)-1)}
+  else if(t.dataset.rm){setQty(t.dataset.rm,0)}
+  else if(t.id==='goCo'){S.user?openCheckout():openAuth('login','Please log in to place your order.',openCheckout)}
+},true);
+
+/* ---------- product detail ---------- */
+$('#grid').addEventListener('click',function(e){if(e.target.closest('button'))return;var c=e.target.closest('.card');if(c)openProduct(+c.dataset.id)});
+function openProduct(id){
+  var p=byId(id);if(!p)return;
+  $('#prodBody').innerHTML='<div class="pimg" style="'+artStyle(p)+'"><svg><use href="#i-bag"/></svg>'+imgTag(p)+'</div><div><span class="st">'+esc(p.category||'Product')+'</span><h2 style="margin:12px 0 8px">'+esc(p.name)+'</h2><div class="price" style="font-size:1.6rem">'+money(p.price)+'</div><p style="color:var(--muted);margin:14px 0;white-space:pre-line">'+esc(p.description||'No description yet.')+'</p><p style="font-weight:700;margin-bottom:14px;color:'+(p.stock>0?'var(--ok)':'var(--bad)')+'">'+(p.stock<1?'Out of stock':p.stock<=5?'Only '+p.stock+' left':'In stock')+'</p>'+(p.stock>0?'<button class="btn btn-or block" id="pmAdd">Add to cart</button>':'')+'</div>';
+  show($('#prodM'));var a=$('#pmAdd');if(a)a.onclick=function(){setQty(id,qtyInCart(id)+1);toast('Added to cart ✓');hide();renderCart();show($('#cart'))};
+}
+
+/* ---------- auth ---------- */
+var afterAuth=null,authMode='login';
+function openAuth(mode,msg,cb){afterAuth=cb||null;setAuthMode(mode);if(msg)$('#authS').textContent=msg;$('#authE').textContent='';show($('#authM'));setTimeout(function(){$('#aEmail').focus()},300)}
+function setAuthMode(m){authMode=m;$$('#authM .tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.t===m)});$('#regOnly').hidden=m!=='register';$('#authT').textContent=m==='login'?'Welcome back':'Create your account';$('#authS').textContent=m==='login'?'Log in to place and track your orders.':'It takes a minute. Then you can order and track everything.';$('#authGo').textContent=m==='login'?'Log in':'Create account';$('#passHint').textContent=m==='register'?'(8+ characters)':'';$('#aPass').autocomplete=m==='login'?'current-password':'new-password'}
+$$('#authM .tabs button').forEach(function(b){b.onclick=function(){setAuthMode(b.dataset.t)}});
+$('#authF').onsubmit=function(e){e.preventDefault();var btn=$('#authGo');$('#authE').textContent='';btn.disabled=true;
+  var body={email:$('#aEmail').value,password:$('#aPass').value};if(authMode==='register'){body.name=$('#aName').value;body.phone=$('#aPhone').value}
+  api(authMode,body).then(function(j){S.user=j.user;renderUser();$('#authF').reset();hide();toast(authMode==='login'?'Welcome back, '+firstName()+'!':'Account created. Welcome, '+firstName()+'!');var cb=afterAuth;afterAuth=null;if(cb)setTimeout(cb,350)})
+  .catch(function(er){$('#authE').textContent=er.message}).then(function(){btn.disabled=false});};
+function firstName(){return S.user?S.user.name.split(' ')[0]:''}
+function renderUser(){var u=S.user;$('#accLbl').textContent=u?firstName():'Login';$('#adminLink').hidden=!(u&&u.role==='admin')}
+$('#accBtn').onclick=function(){S.user?openAccount():openAuth('login')};
+
+/* ---------- checkout ---------- */
+function openCheckout(){
+  var ls=cartLines();if(!ls.length){toast('Your cart is empty');return}
+  var u=S.user;
+  $('#coBody').innerHTML='<h2>Checkout</h2><p class="sub">Tell us where to deliver. We will confirm your order by phone or WhatsApp.</p>'+
+  '<form id="coF" novalidate><div class="two"><div><label>Full name</label><input class="in-t" id="coName" value="'+esc(u.name)+'"></div><div><label>Phone number</label><input class="in-t" id="coPhone" type="tel" value="'+esc(u.phone)+'" placeholder="0500805719"></div></div>'+
+  '<label>Delivery address</label><input class="in-t" id="coAddr" value="'+esc(u.address)+'" placeholder="House number, street, landmark"><label>City / town</label><input class="in-t" id="coCity" value="'+esc(u.city)+'">'+
+  '<label>Note (optional)</label><textarea class="in-t" id="coNote" placeholder="Anything we should know?"></textarea>'+
+  '<label>Payment</label><div class="pm"><label><input type="radio" name="pay" value="pay_on_delivery" checked> Pay on delivery</label><label><input type="radio" name="pay" value="mobile_money"> Mobile Money</label></div>'+
+  '<div class="sum">'+ls.map(function(l){return '<div><span>'+l.q+' × '+esc(l.p.name)+'</span><span>'+money(l.p.price*l.q)+'</span></div>'}).join('')+'<div style="border-top:1px solid #cfdbe7;margin-top:6px;padding-top:8px;font:800 1.05rem Manrope"><span>Total</span><span>'+money(cartTotal())+'</span></div></div>'+
+  '<div class="err" id="coE"></div><button class="btn btn-or block" style="margin-top:16px" id="coGo" type="submit">Place order</button></form>';
+  show($('#coM'));
+  $('#coF').onsubmit=function(e){e.preventDefault();var b=$('#coGo');b.disabled=true;$('#coE').textContent='';
+    api('order_create',{name:$('#coName').value,phone:$('#coPhone').value,address:$('#coAddr').value,city:$('#coCity').value,note:$('#coNote').value,payment:($('input[name=pay]:checked')||{}).value,
+      items:ls.map(function(l){return {id:l.p.id,qty:l.q}})}).then(function(j){S.cart={};saveCart();renderCartCount();success(j.order);load()})
+    .catch(function(er){$('#coE').textContent=er.message;b.disabled=false;if(er.status===401){S.user=null;renderUser()}if(er.status===409)load()});};
+}
+function success(o){
+  var msg='Hello Spenpy Mart, I just placed order #'+o.id+' ('+money(o.total)+'). Name: '+o.name+'.';
+  $('#coBody').innerHTML='<div class="success"><div class="tick">✓</div><h2 style="padding:0">Order placed!</h2><p class="sub" style="margin-top:6px">Your order <b>#'+o.id+'</b> total is <b>'+money(o.total)+'</b>.<br>We will contact you on <b>'+esc(o.phone)+'</b> to confirm delivery.</p>'+
+  '<a class="btn btn-or block" target="_blank" rel="noopener" href="https://wa.me/'+esc(S.wa)+'?text='+encodeURIComponent(msg)+'">Message us on WhatsApp</a><button class="btn btn-gh block" style="margin-top:10px" id="viewOrders">View my orders</button></div>';
+  $('#viewOrders').onclick=function(){openAccount('orders')};
+}
+
+/* ---------- account ---------- */
+var STATUS={pending:'Pending',confirmed:'Confirmed',shipped:'On the way',delivered:'Delivered',cancelled:'Cancelled'};
+function openAccount(tab){
+  var u=S.user;$('#accName').textContent='Hi, '+firstName()+' 👋';$('#accMail').textContent=u.email;$('#accWho').textContent=u.email;
+  $('#pfName').value=u.name;$('#pfPhone').value=u.phone;$('#pfAddr').value=u.address;$('#pfCity').value=u.city;
+  accTab(tab||'orders');show($('#accM'));loadOrders();
+}
+function accTab(t){$$('#accM .tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.t===t)});$('#accOrders').hidden=t!=='orders';$('#accProfile').hidden=t!=='profile';$('#accPw').hidden=t!=='pw'}
+$$('#accM .tabs button').forEach(function(b){b.onclick=function(){accTab(b.dataset.t)}});
+function loadOrders(){var box=$('#accOrders');box.innerHTML='<div class="skel" style="height:90px"></div>';
+  api('my_orders').then(function(j){
+    if(!j.orders.length){box.innerHTML='<div class="state" style="padding:36px 10px"><div class="big">📦</div><h3>No orders yet</h3><p>When you place an order it will appear here.</p></div>';return}
+    box.innerHTML=j.orders.map(function(o){return '<div class="ord"><div class="ord-h"><b>Order #'+o.id+'</b><span class="st '+o.status+'">'+(STATUS[o.status]||o.status)+'</span></div><small style="color:var(--muted)">'+esc(o.created_at)+'</small><ul>'+o.items.map(function(i){return '<li><span>'+i.qty+' × '+esc(i.name)+'</span><span>'+money(i.price*i.qty)+'</span></li>'}).join('')+'</ul><div class="ord-h"><b>Total '+money(o.total)+'</b>'+(o.status==='pending'?'<button class="btn btn-gh" style="padding:8px 14px;font-size:13px" data-cancel="'+o.id+'">Cancel order</button>':'')+'</div></div>'}).join('');
+  }).catch(function(e){box.innerHTML='<div class="err">'+esc(e.message)+'</div>'});}
+$('#accOrders').onclick=function(e){var b=e.target.closest('[data-cancel]');if(!b)return;if(!confirm('Cancel this order?'))return;b.disabled=true;api('order_cancel',{id:+b.dataset.cancel}).then(function(){toast('Order cancelled');loadOrders();load()}).catch(function(er){toast(er.message);b.disabled=false})};
+$('#accProfile').onsubmit=function(e){e.preventDefault();$('#pfE').textContent='';api('profile',{name:$('#pfName').value,phone:$('#pfPhone').value,address:$('#pfAddr').value,city:$('#pfCity').value}).then(function(j){S.user=j.user;renderUser();$('#accName').textContent='Hi, '+firstName()+' 👋';toast('Profile saved ✓')}).catch(function(er){$('#pfE').textContent=er.message})};
+$('#accPw').onsubmit=function(e){e.preventDefault();$('#pwE').textContent='';api('password',{current:$('#pwCur').value,new:$('#pwNew').value}).then(function(){$('#accPw').reset();toast('Password changed ✓')}).catch(function(er){$('#pwE').textContent=er.message})};
+$('#logoutBtn').onclick=function(){api('logout',{}).then(function(){S.user=null;renderUser();hide();toast('You are logged out')})};
+
+/* ---------- start ---------- */
+api('config').then(function(j){S.cur=j.currency||S.cur;S.wa=j.whatsapp||S.wa;$('#waFloat').href='https://wa.me/'+S.wa}).catch(function(){});
+api('me').then(function(j){S.user=j.user;renderUser()}).catch(function(){});
+load();renderCartCount();
+})();
+</script>
+</body>
+</html>

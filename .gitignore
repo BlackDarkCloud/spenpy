@@ -1,0 +1,5 @@
+# private / server-only files: never commit these
+config.php
+setup.lock
+_media_backup/
+_media_tmp/
